@@ -21,10 +21,14 @@ jobs:
             "${{ github.api_url }}/repos/${{ github.repository }}/actions/jobs/$JOBID/logs" -o compile.log
           {
             echo "log_bytes=$(wc -c < compile.log)"
-            echo "--- ustream error block full ---"
-            grep -B80 "ustream-ssl failed to build" compile.log | grep -avE "PATH=/home|CGO_|GOCACHE|^2026.*(Downloading|Connecting|Waiting)" | tail -45 || true
+            echo "--- all ustream mentions ---"
+            grep -an "ustream-ssl" compile.log | tail -12 || true
+            echo "--- ustream V=s error detail ---"
+            grep -aE "ustream|libustream" compile.log | grep -aiE "error|fail|undefined|missing" | tail -10 || true
             echo "--- .config selections ---"
-            grep -aE "^CONFIG_PACKAGE_(xray-core|libustream-mbedtls|ustream-ssl|v2ray|nginx-ssl|uhttpd|luci-nginx|curl|libopenssl|sing-box|golang)[= ]" compile.log | head -16 || true
+            grep -aE "CONFIG_PACKAGE_(xray-core|libustream-mbedtls|ustream-ssl|v2ray|nginx-ssl|uhttpd|luci-nginx|curl|libopenssl|sing-box|luci-app-passwall2_Basic)[= ]" compile.log | head -16 || true
+            echo "--- golang variants used ---"
+            grep -aoE "golang1?\.?2[67]?/host" compile.log | sort | uniq -c | head -6 || true
           } > logtail.txt
           git config user.email "bot@kwrt.local"
           git config user.name "logbot"
