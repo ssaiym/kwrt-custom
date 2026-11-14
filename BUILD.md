@@ -52,3 +52,24 @@ commit + push → Actions 里再 Run 一次。包名必须真实存在于
 
 Actions 日志定位到首个 ERROR；依赖缺失时改包名或注释掉该包重跑；
 镜像过大时（AX3000T 放不下）优先去掉 `Basic_Core_All`、`sing-box` 等大包。
+
+## 7. 本地预览环境（D:\KwrtPreview）
+
+双击 `start-vm.bat` 启动 Kwrt x86 预览虚拟机（TCG 模拟约 3-6 分钟出登录提示）：
+
+- LuCI: <http://127.0.0.1:8080>，账号 `root` / 密码 `root`
+- SSH: `ssh -p 2222 root@127.0.0.1`（同账号密码）
+- 串口控制台：bat 窗口本身（可直接登录）
+
+预览新功能流程：VM 里 `opkg update && opkg install <包名>` →
+浏览器确认界面/配置流程满意 → 把包写进 `devices/mediatek_filogic/.config` →
+推送触发正式构建 → 刷真机。
+
+注意事项：
+- VM 网关已配置 10.0.0.2（qemu slirp），opkg 可联网；VM 网段必须与
+  guest 静态 LAN 10.0.0.1/24 一致（bat 里已固化），改错会导致端口转发静默失效
+- 虚拟机里验证的是 LuCI 界面/配置流程/脚本逻辑；MT7981 特有行为
+  （无线、硬件加速）以真机为准
+- 纯净镜像备份在同目录 `kwrt-x86.pristine.img`，VM 玩坏了就
+  `copy /y kwrt-x86.pristine.img kwrt-x86.img` 重来
+
