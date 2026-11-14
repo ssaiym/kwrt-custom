@@ -21,10 +21,14 @@ jobs:
             "${{ github.api_url }}/repos/${{ github.repository }}/actions/jobs/$JOBID/logs" -o compile.log
           {
             echo "log_bytes=$(wc -c < compile.log)"
-            echo "--- error markers ---"
-            grep -anE "ERROR:|error:|Error [0-9]| failed|No space left|Cannot find|not found" compile.log | tail -40 || true
-            echo "--- last 70 lines ---"
-            tail -70 compile.log
+            echo "--- xray error context ---"
+            grep -B25 "xray-core failed to build" compile.log | grep -aE "error|Error|go:|GOPROXY|version|aarch64|cc1|undefined" | tail -30 || true
+            echo "--- ustream error context ---"
+            grep -B20 "ustream-ssl failed to build" compile.log | grep -aE "error|Error|mbed|undefined|failed" | tail -20 || true
+            echo "--- who selected xray/ustream in .config ---"
+            grep -aE "^CONFIG_PACKAGE_(xray-core|ustream-ssl|libustream|v2ray|nginx-ssl|uhttpd|luci-nginx|curl|openssl)[= ]" compile.log | head -20 || true
+            echo "--- last 40 lines ---"
+            tail -40 compile.log
           } > logtail.txt
           git config user.email "bot@kwrt.local"
           git config user.name "logbot"
