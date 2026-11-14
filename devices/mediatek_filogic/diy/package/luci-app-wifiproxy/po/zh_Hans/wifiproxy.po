@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: luci-app-wifiproxy 1.0.0\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "WiFi Proxy Matrix"
+msgstr "WiFi 代理矩阵"
+
+msgid "Quickly create WiFi networks bound to independent passwall proxy nodes. Each SSID gets its own subnet, DHCP pool, client isolation and a configurable client limit. Saving and applying regenerates network/dhcp/firewall/wireless and passwall ACL config."
+msgstr "快速创建绑定独立 passwall 代理节点的 WiFi 信号。每个 SSID 拥有独立子网、DHCP 池、客户端隔离和可自定义的连接人数上限。保存并应用后将自动重建 network/dhcp/firewall/wireless 与 passwall ACL 配置。"
+
+msgid "General Settings"
+msgstr "通用设置"
+
+msgid "Guest subnet base"
+msgstr "访客网段基址"
+
+msgid "Profile N uses <base>.N.0/24 (gateway <base>.N.1)."
+msgstr "第 N 个方案使用 <base>.N.0/24 网段（网关 <base>.N.1）。"
+
+msgid "WiFi Profiles"
+msgstr "WiFi 方案列表"
+
+msgid "Each profile creates one WiFi signal. The radio list shows the real radios of this device; profiles without a radio (e.g. on devices without wifi) only generate network config."
+msgstr "每个方案对应一个 WiFi 信号。射频下拉框显示本机实际存在的射频；未选射频的方案（例如在无无线网卡的设备上）只生成网络配置。"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "SSID"
+msgstr "WiFi 名称 (SSID)"
+
+msgid "WiFi Password"
+msgstr "WiFi 密码"
+
+msgid "Radio"
+msgstr "无线射频"
+
+msgid "Max clients"
+msgstr "连接人数上限"
+
+msgid "hostapd max_num_sta of this SSID."
+msgstr "该 WiFi 的最大并发连接设备数（hostapd max_num_sta）。"
+
+msgid "Proxy Node"
+msgstr "代理节点"
+
+msgid "(add nodes in passwall first)"
+msgstr "（请先在 passwall 中添加节点）"
+
+msgid "Client isolation"
+msgstr "客户端隔离"

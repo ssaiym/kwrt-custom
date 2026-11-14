@@ -5,9 +5,7 @@ local sys = require "luci.sys"
 local uci = require "luci.model.uci".cursor()
 
 m = Map("wifiproxy", translate("WiFi Proxy Matrix"),
-	translate("Create guest WiFi networks bound to independent passwall proxy nodes. "
-		.. "Each SSID gets its own subnet, DHCP pool, client-isolation and a configurable client limit. "
-		.. "Apply reloads network/dhcp/firewall/wifi and passwall ACL."))
+	translate("Quickly create WiFi networks bound to independent passwall proxy nodes. Each SSID gets its own subnet, DHCP pool, client isolation and a configurable client limit. Saving and applying regenerates network/dhcp/firewall/wireless and passwall ACL config."))
 
 -- Global settings
 s = m:section(NamedSection, "config", "main", translate("General Settings"))
@@ -38,8 +36,7 @@ end)
 
 -- Profiles table
 s = m:section(TypedSection, "profile", translate("WiFi Profiles"),
-	translate("One WiFi per proxy node. Radio list shows real radios of this device; "
-		.. "profiles without a radio (e.g. on devices without wifi) only generate network config."))
+	translate("Each profile creates one WiFi signal. The radio list shows the real radios of this device; profiles without a radio (e.g. on devices without wifi) only generate network config."))
 s.addremove = true
 s.anonymous = true
 s.sortable = true
