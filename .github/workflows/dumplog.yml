@@ -31,8 +31,15 @@ jobs:
           curl -sL -H "Authorization: token $GH_TOKEN" \
             "${{ github.api_url }}/repos/${{ github.repository }}/actions/jobs/$JOBID/logs" -o compile.log
           echo "log_bytes=$(wc -c < compile.log)"
+          # full log + resolved ssl-related .config selections (the workflow cats .config into the log)
+          grep -aE "CONFIG_PACKAGE_(libustream[-a-z0-9]*|ustream-ssl[-a-z0-9]*|uhttpd[a-z-]*|nginx[a-z-]*|wget-ssl|libmbedtls|libopenssl|libwolfssl|mbedtls[a-z-]*|wolfssl|openssl)[-= ]" compile.log > config-ssl.txt || true
+          grep -aA8 "variables are used in this project" compile.log > cmake-notfound.txt || true
           {
             echo "job=$JOBID log_bytes=$(wc -c < compile.log)"
+            echo "=== ssl-related config selections ==="
+            sort -u config-ssl.txt || true
+            echo "=== cmake NOTFOUND details ==="
+            cat cmake-notfound.txt || true
             echo "=== toolchain / go errors ==="
             grep -aiE "go(mod)? (mod )?requires go|GOTOOLCHAIN|golang[0-9.]*|toolchain" compile.log | tail -20 || true
             echo "=== generic errors (last 40) ==="
@@ -42,10 +49,11 @@ jobs:
             echo "=== last 60 raw lines ==="
             tail -60 compile.log
           } > logtail.txt
+          cp compile.log compile-log.txt || true
           wc -c logtail.txt
           git config user.email "bot@kwrt.local"
           git config user.name "logbot"
-          git add logtail.txt
+          git add logtail.txt compile-log.txt || git add logtail.txt || true
           git commit -m "ci: dump compile log tail (job $JOBID)" || true
           git pull --rebase || true
           git push
