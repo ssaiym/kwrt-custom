@@ -10,6 +10,14 @@ MAX_PROFILES=8
 
 log() { echo "[wifiproxy] $*" >> "$LOG" 2>/dev/null; }
 
+# guard against concurrent applies (racing reloads can wedge netifd)
+if [ -f /tmp/wifiproxy-applying ]; then
+	log "another apply in progress, exiting"
+	exit 0
+fi
+touch /tmp/wifiproxy-applying
+trap 'rm -f /tmp/wifiproxy-applying' EXIT
+
 BASE=$(uci -q get wifiproxy.config.subnet_base)
 BASE=${BASE:-10.10}
 
@@ -149,12 +157,15 @@ uci commit firewall 2>/dev/null
 uci commit passwall 2>/dev/null
 
 # ---- service reloads ------------------------------------------------------
+# Use incremental reloads: a full "network restart" tears down every
+# interface (incl. the one LuCI is served on) and can wedge netifd.
+/etc/init.d/network reload >/dev/null 2>&1
 if have_wireless; then
 	/sbin/wifi config >/dev/null 2>&1
+	/sbin/wifi reload >/dev/null 2>&1
 fi
-/etc/init.d/network restart >/dev/null 2>&1
 /etc/init.d/dnsmasq restart >/dev/null 2>&1
-/etc/init.d/firewall restart >/dev/null 2>&1
+/etc/init.d/firewall reload >/dev/null 2>&1
 /etc/init.d/passwall restart >/dev/null 2>&1
 
 log "apply finished, $idx profile(s) active"
