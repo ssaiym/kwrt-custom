@@ -1,0 +1,30 @@
+name: Dump Failed Log
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Fetch failed job log and commit the tail
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          JOBID=132370832023
+          curl -sL -H "Authorization: token $GH_TOKEN" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/actions/jobs/$JOBID/logs" -o compile.log
+          {
+            echo "log_bytes=$(wc -c < compile.log)"
+            echo "--- error markers ---"
+            grep -anE "ERROR:|error:|Error [0-9]| failed|No space left|Cannot find|not found" compile.log | tail -40 || true
+            echo "--- last 70 lines ---"
+            tail -70 compile.log
+          } > logtail.txt
+          git config user.email "bot@kwrt.local"
+          git config user.name "logbot"
+          git add logtail.txt
+          git commit -m "ci: dump compile log tail (job $JOBID)"
+          git push
