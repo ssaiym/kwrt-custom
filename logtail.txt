@@ -1,4 +1,52 @@
 job=132444867460 log_bytes=1255169
+=== ssl-related config selections ===
+2026-11-14T12:26:14.2333663Z # CONFIG_PACKAGE_libmbedtls is not set
+2026-11-14T12:26:14.2333825Z CONFIG_PACKAGE_libopenssl=y
+2026-11-14T12:26:14.2337101Z # CONFIG_PACKAGE_libopenssl-afalg is not set
+2026-11-14T12:26:14.2337199Z # CONFIG_PACKAGE_libopenssl-afalg_sync is not set
+2026-11-14T12:26:14.2337290Z # CONFIG_PACKAGE_libopenssl-conf is not set
+2026-11-14T12:26:14.2337387Z # CONFIG_PACKAGE_libopenssl-devcrypto is not set
+2026-11-14T12:26:14.2337487Z # CONFIG_PACKAGE_libopenssl-gost_engine is not set
+2026-11-14T12:26:14.2337575Z # CONFIG_PACKAGE_libopenssl-legacy is not set
+2026-11-14T12:26:14.2337678Z # CONFIG_PACKAGE_libopenssl-oqsprovider is not set
+2026-11-14T12:26:14.2337838Z # CONFIG_PACKAGE_libwolfssl is not set
+2026-11-14T12:26:14.2370418Z # CONFIG_PACKAGE_libopenssl-gost-engine is not set
+2026-11-14T12:26:14.2370531Z # CONFIG_PACKAGE_libopenssl-gost-provider is not set
+2026-11-14T12:26:14.2380697Z # CONFIG_PACKAGE_libustream-mbedtls is not set
+2026-11-14T12:26:14.2380794Z # CONFIG_PACKAGE_libustream-openssl is not set
+2026-11-14T12:26:14.2380878Z # CONFIG_PACKAGE_libustream-wolfssl is not set
+2026-11-14T12:26:14.2476920Z CONFIG_PACKAGE_wget-ssl=y
+2026-11-14T12:26:14.2540095Z # CONFIG_PACKAGE_nginx-full is not set
+2026-11-14T12:26:14.2540175Z # CONFIG_PACKAGE_nginx-mod-brotli is not set
+2026-11-14T12:26:14.2540263Z # CONFIG_PACKAGE_nginx-mod-dav-ext is not set
+2026-11-14T12:26:14.2540345Z # CONFIG_PACKAGE_nginx-mod-geoip2 is not set
+2026-11-14T12:26:14.2540443Z # CONFIG_PACKAGE_nginx-mod-headers-more is not set
+2026-11-14T12:26:14.2540622Z # CONFIG_PACKAGE_nginx-mod-lua is not set
+2026-11-14T12:26:14.2540737Z # CONFIG_PACKAGE_nginx-mod-lua-resty-core is not set
+2026-11-14T12:26:14.2540854Z # CONFIG_PACKAGE_nginx-mod-lua-resty-lrucache is not set
+2026-11-14T12:26:14.2540930Z CONFIG_PACKAGE_nginx-mod-luci=m
+2026-11-14T12:26:14.2541012Z # CONFIG_PACKAGE_nginx-mod-naxsi is not set
+2026-11-14T12:26:14.2541088Z # CONFIG_PACKAGE_nginx-mod-njs is not set
+2026-11-14T12:26:14.2541173Z # CONFIG_PACKAGE_nginx-mod-rtmp is not set
+2026-11-14T12:26:14.2541253Z # CONFIG_PACKAGE_nginx-mod-stream is not set
+2026-11-14T12:26:14.2541333Z # CONFIG_PACKAGE_nginx-mod-ts is not set
+2026-11-14T12:26:14.2541407Z CONFIG_PACKAGE_nginx-mod-ubus=m
+2026-11-14T12:26:14.2541476Z CONFIG_PACKAGE_nginx-ssl=m
+2026-11-14T12:26:14.2544661Z CONFIG_PACKAGE_nginx-ssl-util=m
+2026-11-14T12:26:14.2544760Z # CONFIG_PACKAGE_nginx-ssl-util-nopcre is not set
+2026-11-14T12:26:14.2549741Z # CONFIG_PACKAGE_uhttpd is not set
+2026-11-14T12:26:14.2653296Z # CONFIG_PACKAGE_mbedtls-util is not set
+2026-11-14T12:26:14.2656646Z # CONFIG_PACKAGE_openssl-util is not set
+=== cmake NOTFOUND details ===
+2026-11-14T15:55:44.2555873Z CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+2026-11-14T15:55:44.2556321Z Please set them or make sure they are set and tested correctly in the CMake files:
+2026-11-14T15:55:44.2556641Z mbedcrypto_library
+2026-11-14T15:55:44.2557213Z     linked by target "ustream-ssl" in directory /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db
+2026-11-14T15:55:44.2557793Z mbedtls_library
+2026-11-14T15:55:44.2558330Z     linked by target "ustream-ssl" in directory /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db
+2026-11-14T15:55:44.2558903Z mbedx509_library
+2026-11-14T15:55:44.2559608Z     linked by target "ustream-ssl" in directory /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db
+2026-11-14T15:55:44.2560271Z 
 === toolchain / go errors ===
 2026-11-14T12:26:14.2238602Z # CONFIG_PACKAGE_golang1.26-misc is not set
 2026-11-14T12:26:14.2238677Z # CONFIG_PACKAGE_golang1.26-src is not set
