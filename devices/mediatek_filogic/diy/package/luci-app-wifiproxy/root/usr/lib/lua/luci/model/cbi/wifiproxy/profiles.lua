@@ -4,15 +4,7 @@
 local sys = require "luci.sys"
 local uci = require "luci.model.uci".cursor()
 
-m = Map("wifiproxy", translate("WiFi Proxy Matrix"),
-	translate("Quickly create WiFi networks bound to independent passwall proxy nodes. Each SSID gets its own subnet, DHCP pool, client isolation and a configurable client limit. Saving and applying regenerates network/dhcp/firewall/wireless and passwall ACL config."))
-
--- Global settings
-s = m:section(NamedSection, "config", "main", translate("General Settings"))
-o = s:option(Value, "subnet_base", translate("Guest subnet base"),
-	translate("Profile N uses <base>.N.0/24 (gateway <base>.N.1)."))
-o.placeholder = "10.10"
-o.rmempty = false
+local base = uci:get("wifiproxy", "config", "subnet_base") or "10.10"
 
 -- Enumerate radios from /etc/config/wireless
 local radios = {}
@@ -28,11 +20,83 @@ uci:foreach("wireless", "wifi-device", function(sec)
 end)
 local has_wifi = (#radios > 0)
 
--- Enumerate passwall proxy nodes
+-- Enumerate passwall proxy nodes, label shows protocol type
 local nodes = {}
 uci:foreach("passwall", "node", function(sec)
-	nodes[#nodes + 1] = { sec[".name"], sec.remarks or sec[".name"] }
+	local label = sec.remarks or sec[".name"]
+	local t = sec.type or ""
+	if t ~= "" then
+		label = label .. " (" .. t .. ")"
+	end
+	nodes[#nodes + 1] = { sec[".name"], label }
 end)
+
+-- The apply script numbers profiles by UCI order among enabled ones;
+-- mirror that numbering here so the table shows the real mapping.
+local iface_map = {}
+local idx = 0
+uci:foreach("wifiproxy", "profile", function(sec)
+	if tostring(sec.enabled) ~= "0" then
+		idx = idx + 1
+		iface_map[sec[".name"]] = idx
+	end
+end)
+
+local function esc_dot(s)
+	return (s:gsub("%.", "%%."))
+end
+
+local function row_info(section)
+	local i = iface_map[section]
+	if not i then
+		return translate("not enabled")
+	end
+	local ifn = "wwifi" .. i
+	local info = ifn .. " | " .. base .. "." .. i .. ".0/24"
+	local st = sys.exec("ubus call network.interface." .. ifn .. " status 2>/dev/null")
+	if st == "" then
+		return info .. " | " .. translate("not applied")
+	end
+	if st:match('"up"%s*:%s*true') then
+		local pat = "^" .. esc_dot(base .. "." .. i) .. "%."
+		local cnt = sys.exec("awk '{n+=($3 ~ /" .. pat .. "/)?1:0} END{print n+0}' /tmp/dhcp.leases 2>/dev/null")
+		cnt = (cnt or "0"):gsub("%s+", "")
+		return info .. " | " .. string.format(translate("%d client(s) online"), tonumber(cnt) or 0)
+	end
+	return info .. " | " .. translate("interface down")
+end
+
+m = Map("wifiproxy", translate("WiFi Proxy Matrix"),
+	translate("Quickly create WiFi networks bound to independent passwall proxy nodes. Each SSID gets its own subnet, DHCP pool, client isolation and a configurable client limit. Saving and applying regenerates network/dhcp/firewall/wireless and passwall ACL config."))
+
+-- Global settings
+s = m:section(NamedSection, "config", "main", translate("General Settings"))
+o = s:option(Value, "subnet_base", translate("Guest subnet base"),
+	translate("Profile N uses <base>.N.0/24 (gateway <base>.N.1)."))
+o.placeholder = "10.10"
+o.rmempty = false
+
+-- Quick create: batch-generate profiles with round-robin node/radio assignment
+s = m:section(NamedSection, "batch", "batch", translate("Quick Create"),
+	translate("Batch-create WiFi profiles: proxy nodes are assigned round-robin, radios alternate when multiple radios exist, blank password = random per SSID. Takes effect after Save & Apply."))
+s.addremove = false
+
+o = s:option(ListValue, "batch_count", translate("WiFi count"))
+o:value("", translate("(select count, then Save & Apply)"))
+o.rmempty = true
+for i = 1, 8 do
+	o:value(tostring(i), tostring(i))
+end
+
+o = s:option(Value, "batch_prefix", translate("Name prefix"))
+o.default = "PROXY"
+o.datatype = "rangelength(1,20)"
+o.rmempty = false
+
+o = s:option(Value, "batch_password", translate("WiFi password (blank = random)"))
+o.password = true
+o.datatype = "rangelength(8,63)"
+o.rmempty = true
 
 -- Profiles table
 s = m:section(TypedSection, "profile", translate("WiFi Profiles"),
@@ -77,11 +141,84 @@ for _, n in ipairs(nodes) do
 end
 o.rmempty = true
 
+o = s:option(DummyValue, "_iface", translate("Interface / Subnet"))
+function o.cfgvalue(self, section)
+	return row_info(section)
+end
+
 o = s:option(Flag, "isolate", translate("Client isolation"))
 o.default = "1"
 
--- Regenerate managed configs after every successful save
+-- After every successful save: handle quick-create batch, then regenerate configs
 m.on_after_commit = function(self)
+	local uc = require "luci.model.uci".cursor()
+	local c = uc:get("wifiproxy", "batch", "batch_count")
+	if c and tonumber(c) and tonumber(c) >= 1 then
+		local n = math.min(tonumber(c), 8)
+		local prefix = uc:get("wifiproxy", "batch", "batch_prefix") or "PROXY"
+		prefix = (prefix:gsub("%s+", ""))
+		if prefix == "" then
+			prefix = "PROXY"
+		end
+		if #prefix > 20 then
+			prefix = prefix:sub(1, 20)
+		end
+		local pass = uc:get("wifiproxy", "batch", "batch_password") or ""
+
+		local pool = {}
+		uc:foreach("passwall", "node", function(sec)
+			pool[#pool + 1] = sec[".name"]
+		end)
+		local rl = {}
+		uc:foreach("wireless", "wifi-device", function(sec)
+			rl[#rl + 1] = sec[".name"]
+		end)
+
+		local taken = {}
+		uc:foreach("wifiproxy", "profile", function(sec)
+			if sec.name then
+				taken[sec.name] = true
+			end
+		end)
+
+		local alpha = "abcdefghjkmnpqrstuvwxyz23456789"
+		for i = 1, n do
+			local nm = prefix .. "-" .. i
+			local suffix = 1
+			while taken[nm] do
+				suffix = suffix + 1
+				nm = prefix .. "-" .. i .. "-" .. suffix
+			end
+			taken[nm] = true
+
+			local pw = pass or ""
+			if #pw < 8 then
+				math.randomseed((os.time() + i * 7919) % 2147483647)
+				pw = ""
+				for _ = 1, 12 do
+					local k = math.random(#alpha)
+					pw = pw .. alpha:sub(k, k)
+				end
+			end
+
+			local sid = uc:add("wifiproxy", "profile")
+			uc:set("wifiproxy", sid, "enabled", "1")
+			uc:set("wifiproxy", sid, "name", nm)
+			uc:set("wifiproxy", sid, "password", pw)
+			if #rl > 0 then
+				uc:set("wifiproxy", sid, "radio", rl[((i - 1) % #rl) + 1])
+			end
+			uc:set("wifiproxy", sid, "max_clients", "8")
+			if #pool > 0 then
+				uc:set("wifiproxy", sid, "node", pool[((i - 1) % #pool) + 1])
+			end
+			uc:set("wifiproxy", sid, "isolate", "1")
+		end
+
+		uc:delete("wifiproxy", "batch", "batch_count")
+		uc:delete("wifiproxy", "batch", "batch_password")
+		uc:commit("wifiproxy")
+	end
 	sys.call("/usr/libexec/wifiproxy-apply.sh >/tmp/wifiproxy-apply.log 2>&1 &")
 end
 

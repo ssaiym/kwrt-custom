@@ -1,2 +1,5 @@
 config main 'config'
 	option subnet_base '10.10'
+
+config batch 'batch'
+	option batch_prefix 'PROXY'

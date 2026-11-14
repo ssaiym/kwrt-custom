@@ -53,3 +53,36 @@ msgstr "（请先在 passwall 中添加节点）"
 
 msgid "Client isolation"
 msgstr "客户端隔离"
+
+msgid "Quick Create"
+msgstr "快速创建"
+
+msgid "Batch-create WiFi profiles: proxy nodes are assigned round-robin, radios alternate when multiple radios exist, blank password = random per SSID. Takes effect after Save & Apply."
+msgstr "批量生成 WiFi 方案：代理节点按顺序轮询分配；存在多个射频时交替使用 2.4G/5G；密码留空则每个 WiFi 随机生成。保存并应用后生效。"
+
+msgid "WiFi count"
+msgstr "WiFi 数量"
+
+msgid "(select count, then Save & Apply)"
+msgstr "（选择数量后点保存并应用）"
+
+msgid "Name prefix"
+msgstr "名称前缀"
+
+msgid "WiFi password (blank = random)"
+msgstr "WiFi 密码（留空 = 随机生成）"
+
+msgid "Interface / Subnet"
+msgstr "接口 / 网段"
+
+msgid "not enabled"
+msgstr "未启用"
+
+msgid "not applied"
+msgstr "未应用"
+
+msgid "interface down"
+msgstr "接口未 UP"
+
+msgid "%d client(s) online"
+msgstr "%d 台设备在线"
