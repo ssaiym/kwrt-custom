@@ -2,6 +2,11 @@ name: Dump Failed Log
 
 on:
   workflow_dispatch:
+    inputs:
+      jobid:
+        description: "Job ID to dump (from .../actions/runs/<runid>/jobs)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -16,22 +21,31 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          JOBID=132370832023
+          JOBID="${{ github.event.inputs.jobid }}"
+          if [ -z "$JOBID" ]; then
+            JOBID=$(curl -sL -H "Authorization: token $GH_TOKEN" \
+              "${{ github.api_url }}/repos/${{ github.repository }}/actions/runs?per_page=5&status=failure" | \
+              grep -o '"id": [0-9]*' | head -1 | grep -o '[0-9]*')
+          fi
+          echo "dumping job $JOBID"
           curl -sL -H "Authorization: token $GH_TOKEN" \
             "${{ github.api_url }}/repos/${{ github.repository }}/actions/jobs/$JOBID/logs" -o compile.log
+          echo "log_bytes=$(wc -c < compile.log)"
           {
-            echo "log_bytes=$(wc -c < compile.log)"
-            echo "--- all ustream mentions ---"
-            grep -an "ustream-ssl" compile.log | tail -12 || true
-            echo "--- ustream V=s error detail ---"
-            grep -aE "ustream|libustream" compile.log | grep -aiE "error|fail|undefined|missing" | tail -10 || true
-            echo "--- .config selections ---"
-            grep -aE "CONFIG_PACKAGE_(xray-core|libustream-mbedtls|ustream-ssl|v2ray|nginx-ssl|uhttpd|luci-nginx|curl|libopenssl|sing-box|luci-app-passwall2_Basic)[= ]" compile.log | head -16 || true
-            echo "--- golang variants used ---"
-            grep -aoE "golang1?\.?2[67]?/host" compile.log | sort | uniq -c | head -6 || true
+            echo "job=$JOBID log_bytes=$(wc -c < compile.log)"
+            echo "=== toolchain / go errors ==="
+            grep -aiE "go(mod)? (mod )?requires go|GOTOOLCHAIN|golang[0-9.]*|toolchain" compile.log | tail -20 || true
+            echo "=== generic errors (last 40) ==="
+            grep -aiE "error:|Error |FAILED|failed|undefined reference|cannot find|No such file" compile.log | tail -40 || true
+            echo "=== package mentions near failures ==="
+            grep -aB2 -A2 "make.*failed" compile.log | tail -40 || true
+            echo "=== last 60 raw lines ==="
+            tail -60 compile.log
           } > logtail.txt
+          wc -c logtail.txt
           git config user.email "bot@kwrt.local"
           git config user.name "logbot"
           git add logtail.txt
-          git commit -m "ci: dump compile log tail (job $JOBID)"
+          git commit -m "ci: dump compile log tail (job $JOBID)" || true
+          git pull --rebase || true
           git push
