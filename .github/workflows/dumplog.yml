@@ -21,14 +21,14 @@ jobs:
             "${{ github.api_url }}/repos/${{ github.repository }}/actions/jobs/$JOBID/logs" -o compile.log
           {
             echo "log_bytes=$(wc -c < compile.log)"
-            echo "--- xray error context ---"
-            grep -B25 "xray-core failed to build" compile.log | grep -aE "error|Error|go:|GOPROXY|version|aarch64|cc1|undefined" | tail -30 || true
-            echo "--- ustream error context ---"
-            grep -B20 "ustream-ssl failed to build" compile.log | grep -aE "error|Error|mbed|undefined|failed" | tail -20 || true
-            echo "--- who selected xray/ustream in .config ---"
-            grep -aE "^CONFIG_PACKAGE_(xray-core|ustream-ssl|libustream|v2ray|nginx-ssl|uhttpd|luci-nginx|curl|openssl)[= ]" compile.log | head -20 || true
-            echo "--- last 40 lines ---"
-            tail -40 compile.log
+            echo "--- go toolchain errors ---"
+            grep -aE "requires go|go: |fatal error|note: module requires|GOTOOLCHAIN" compile.log | grep -av "PATH=/home" | grep -av "CGO" | tail -12 || true
+            echo "--- xray build error block ---"
+            grep -B12 "Xray-core-26.11.9/.built] Error 1" compile.log | grep -avE "PATH=/home|CGO_|GOCACHE|GOMODCACHE|GOENV|GO_BUILD|GO_MOD" | tail -14 || true
+            echo "--- ustream error block ---"
+            grep -B15 "ustream-ssl failed to build" compile.log | grep -aE "error|Error|mbedtls|mbed" | tail -10 || true
+            echo "--- .config selections ---"
+            grep -aE "^CONFIG_PACKAGE_(xray-core|libustream-mbedtls|ustream-ssl|v2ray|nginx-ssl|uhttpd|luci-nginx|curl|libopenssl|sing-box)[= ]" compile.log | head -16 || true
           } > logtail.txt
           git config user.email "bot@kwrt.local"
           git config user.name "logbot"
