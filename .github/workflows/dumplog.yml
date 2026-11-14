@@ -3,6 +3,9 @@ name: Dump Failed Log
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   dump:
     runs-on: ubuntu-latest
