@@ -1,0 +1,113 @@
+log_bytes=1407717
+--- error markers ---
+8048:2026-11-14T07:13:36.5066352Z tmp/.config-package.in:96498:error: recursive dependency detected!
+8053:2026-11-14T07:13:36.5068452Z tmp/.config-package.in:90605:error: recursive dependency detected!
+8058:2026-11-14T07:13:36.5107697Z tmp/.config-package.in:72558:error: recursive dependency detected!
+8063:2026-11-14T07:13:36.5159984Z tmp/.config-package.in:91551:error: recursive dependency detected!
+8070:2026-11-14T07:13:36.5201444Z tmp/.config-package.in:83338:error: recursive dependency detected!
+8075:2026-11-14T07:13:36.5203545Z tmp/.config-package.in:96621:error: recursive dependency detected!
+8080:2026-11-14T07:13:36.5205297Z tmp/.config-package.in:96638:error: recursive dependency detected!
+8085:2026-11-14T07:13:36.5207397Z tmp/.config-package.in:96686:error: recursive dependency detected!
+8090:2026-11-14T07:13:36.5209170Z tmp/.config-package.in:96720:error: recursive dependency detected!
+8095:2026-11-14T07:13:36.5303771Z tmp/.config-package.in:90440:error: recursive dependency detected!
+8101:2026-11-14T07:13:36.5333068Z tmp/.config-package.in:81695:error: recursive dependency detected!
+8106:2026-11-14T07:13:36.5335079Z tmp/.config-package.in:83781:error: recursive dependency detected!
+8111:2026-11-14T07:13:36.5338094Z tmp/.config-package.in:101191:error: recursive dependency detected!
+8117:2026-11-14T07:13:36.5423502Z tmp/.config-package.in:96703:error: recursive dependency detected!
+8122:2026-11-14T07:13:36.5425810Z tmp/.config-package.in:96801:error: recursive dependency detected!
+8127:2026-11-14T07:13:36.5427964Z tmp/.config-package.in:55832:error: recursive dependency detected!
+8132:2026-11-14T07:13:36.5429809Z tmp/.config-package.in:74125:error: recursive dependency detected!
+8137:2026-11-14T07:13:36.5493726Z tmp/.config-package.in:90659:error: recursive dependency detected!
+8142:2026-11-14T07:13:36.5495972Z tmp/.config-package.in:91344:error: recursive dependency detected!
+8149:2026-11-14T07:13:36.5694164Z tmp/.config-package.in:96784:error: recursive dependency detected!
+8154:2026-11-14T07:13:36.5746600Z tmp/.config-package.in:69810:error: recursive dependency detected!
+8159:2026-11-14T07:13:36.5749809Z tmp/.config-package.in:80748:error: recursive dependency detected!
+8164:2026-11-14T07:13:36.5752195Z tmp/.config-package.in:96670:error: recursive dependency detected!
+8169:2026-11-14T07:13:36.5754150Z tmp/.config-package.in:100664:error: recursive dependency detected!
+8174:2026-11-14T07:13:36.5830031Z tmp/.config-package.in:96654:error: recursive dependency detected!
+8179:2026-11-14T07:13:36.5926019Z tmp/.config-package.in:73415:error: recursive dependency detected!
+8184:2026-11-14T07:13:36.5948054Z tmp/.config-package.in:96465:error: recursive dependency detected!
+8189:2026-11-14T07:13:36.5950153Z tmp/.config-package.in:96532:error: recursive dependency detected!
+8194:2026-11-14T07:13:36.5952198Z tmp/.config-package.in:96604:error: recursive dependency detected!
+8199:2026-11-14T07:13:36.5954306Z tmp/.config-package.in:96748:error: recursive dependency detected!
+8204:2026-11-14T07:13:36.5970554Z tmp/.config-package.in:99982:error: recursive dependency detected!
+8209:2026-11-14T07:13:36.5973220Z tmp/.config-package.in:81568:error: recursive dependency detected!
+18544:2026-11-14T09:36:39.4398325Z     ERROR: package/libs/ustream-ssl failed to build (build variant: mbedtls).
+18545:2026-11-14T11:11:05.6273043Z make -r world: build failed. Please re-run make with -j1 V=s or V=sc for a higher verbosity level to see what's going on
+18546:2026-11-14T11:11:05.6280950Z make: *** [/home/runner/work/kwrt-custom/kwrt-custom/openwrt/include/toplevel.mk:233: world] Error 1
+18591:2026-11-14T11:25:56.1740306Z make[3]: *** [Makefile:114: /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.built] Error 1
+18594:2026-11-14T11:25:56.1742096Z     ERROR: package/feeds/kiddin9/xray-core failed to build.
+18595:2026-11-14T11:25:56.1742603Z make[2]: *** [package/Makefile:191: package/feeds/kiddin9/xray-core/compile] Error 1
+18597:2026-11-14T11:25:56.1743899Z make[1]: *** [package/Makefile:185: /home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/target-aarch64_cortex-a53_musl/stamp/.package_compile] Error 2
+18599:2026-11-14T11:25:56.1745198Z make: *** [/home/runner/work/kwrt-custom/kwrt-custom/openwrt/include/toplevel.mk:233: world] Error 2
+--- last 70 lines ---
+2026-11-14T11:25:56.1667111Z 
+2026-11-14T11:25:56.1667729Z touch /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.configured_6c6d14f53ed4687bccb1e597c983ff4a
+2026-11-14T11:25:56.1676422Z rm -f /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.built
+2026-11-14T11:25:56.1677921Z touch /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.built_check
+2026-11-14T11:25:56.1687607Z PATH=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/hostpkg/lib/go-1.26/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin GOOS="linux" GOARCH="arm64" GO386="" GOAMD64="" GOARM="" GOARM64="v8.0" GOMIPS="" GOMIPS64="" GOPPC64="" CGO_ENABLED=1 CC="ccache aarch64-openwrt-linux-musl-gcc" CXX="ccache aarch64-openwrt-linux-musl-g++" CGO_CFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9=Xray-core-26.11.9 -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs" CGO_CPPFLAGS="-I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/include -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/include -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/include/fortify" CGO_CXXFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9=Xray-core-26.11.9 -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs" CGO_LDFLAGS="-L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/lib -L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/lib -fuse-ld=bfd -zmax-page-size=4096 -znow -zrelro -zpack-relative-relocs" GOPATH="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.go_work/build" GOCACHE="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/tmp/go-build" GOMODCACHE="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/dl/go-mod-cache" GOENV=off GOTOOLCHAIN=local python3 /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/tools/eip93/overlay.py --go go --out /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.eip93-overlay
+2026-11-14T11:25:56.1719863Z CONFIG_GOLANG_MOD_CACHE_WORLD_READABLE="" GO_BUILD_CACHE_DIR="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/tmp/go-build" GO_MOD_CACHE_DIR="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/dl/go-mod-cache" GO_MOD_ARGS="-modcacherw" PATH=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/hostpkg/lib/go-1.26/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin GO_PKG="github.com/xtls/xray-core" GO_INSTALL_EXTRA="" GO_INSTALL_ALL="" GO_SOURCE_ONLY="" GO_BUILD_PKG="github.com/xtls/xray-core/main" GO_EXCLUDES="" GO_GO_GENERATE="" GO_INSTALL_BIN_PATH="/usr/bin" BUILD_DIR="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9" GO_BUILD_DIR="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.go_work/build" GO_BUILD_BIN_DIR="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.go_work/build/bin/linux_arm64" GO_BUILD_DEPENDS_PATH="/usr/share/gocode" GO_BUILD_DEPENDS_SRC="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/target-aarch64_cortex-a53_musl/usr/share/gocode/src" PATH=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/hostpkg/lib/go-1.26/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin GOOS="linux" GOARCH="arm64" GO386="" GOAMD64="" GOARM="" GOARM64="v8.0" GOMIPS="" GOMIPS64="" GOPPC64="" CGO_ENABLED=1 CC="ccache aarch64-openwrt-linux-musl-gcc" CXX="ccache aarch64-openwrt-linux-musl-g++" CGO_CFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9=Xray-core-26.11.9 -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs" CGO_CPPFLAGS="-I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/include -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/include -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/include/fortify" CGO_CXXFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9=Xray-core-26.11.9 -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs" CGO_LDFLAGS="-L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/lib -L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/lib -fuse-ld=bfd -zmax-page-size=4096 -znow -zrelro -zpack-relative-relocs" GOPATH="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.go_work/build" GOCACHE="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/tmp/go-build" GOMODCACHE="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/dl/go-mod-cache" GOENV=off GOTOOLCHAIN=local /usr/bin/env bash /home/runner/work/kwrt-custom/kwrt-custom/openwrt/feeds/packages/lang/golang/golang-build.sh build -v -buildvcs=false -trimpath -ldflags "all=-linkmode external -extldflags '-L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/lib -L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/lib -fuse-ld=bfd -Wl,-z,max-page-size=4096 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs'"      -installsuffix "v8.0"    -ldflags "-s -w -X github.com/xtls/xray-core/core.build=OpenWrt -X github.com/xtls/xray-core/core.version=26.11.9 -linkmode external -extldflags '-L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/lib -L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/lib -fuse-ld=bfd -Wl,-z,max-page-size=4096 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs'"  -overlay=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.eip93-overlay/overlay.json
+2026-11-14T11:25:56.1737407Z Finding targets
+2026-11-14T11:25:56.1737790Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-11-14T11:25:56.1738244Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-11-14T11:25:56.1738502Z 
+2026-11-14T11:25:56.1738706Z go: ../../go.mod requires go >= 1.27 (running go 1.26.11; GOTOOLCHAIN=local)
+2026-11-14T11:25:56.1739017Z 
+2026-11-14T11:25:56.1739216Z Building targets
+2026-11-14T11:25:56.1739548Z go: ../../go.mod requires go >= 1.27 (running go 1.26.11; GOTOOLCHAIN=local)
+2026-11-14T11:25:56.1739838Z 
+2026-11-14T11:25:56.1740306Z make[3]: *** [Makefile:114: /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/Xray-core-26.11.9/.built] Error 1
+2026-11-14T11:25:56.1741135Z make[3]: Leaving directory '/home/runner/work/kwrt-custom/kwrt-custom/openwrt/feeds/kiddin9/xray-core'
+2026-11-14T11:25:56.1741685Z time: package/feeds/kiddin9/xray-core/compile#1.22#1.73#2.80
+2026-11-14T11:25:56.1742096Z     ERROR: package/feeds/kiddin9/xray-core failed to build.
+2026-11-14T11:25:56.1742603Z make[2]: *** [package/Makefile:191: package/feeds/kiddin9/xray-core/compile] Error 1
+2026-11-14T11:25:56.1743126Z make[2]: Leaving directory '/home/runner/work/kwrt-custom/kwrt-custom/openwrt'
+2026-11-14T11:25:56.1743899Z make[1]: *** [package/Makefile:185: /home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/target-aarch64_cortex-a53_musl/stamp/.package_compile] Error 2
+2026-11-14T11:25:56.1744642Z make[1]: Leaving directory '/home/runner/work/kwrt-custom/kwrt-custom/openwrt'
+2026-11-14T11:25:56.1745198Z make: *** [/home/runner/work/kwrt-custom/kwrt-custom/openwrt/include/toplevel.mk:233: world] Error 2
+2026-11-14T11:25:56.7068362Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-11-14T11:25:56.7068936Z 100   121  100    55  100    66    102    123 --:--:-- --:--:-- --:--:--   226
+2026-11-14T11:25:56.7102604Z {"ok":false,"error_code":404,"description":"Not Found"}Filesystem     Type   Size  Used Avail Use% Mounted on
+2026-11-14T11:25:56.7103269Z /dev/root      ext4   145G   89G   57G  62% /
+2026-11-14T11:25:56.7107207Z tmpfs          tmpfs  7.9G   84K  7.9G   1% /dev/shm
+2026-11-14T11:25:56.7107686Z tmpfs          tmpfs  3.2G 1020K  3.2G   1% /run
+2026-11-14T11:25:56.7107999Z tmpfs          tmpfs  5.0M     0  5.0M   0% /run/lock
+2026-11-14T11:25:56.7108310Z /dev/sda16     ext4   881M   85M  735M  11% /boot
+2026-11-14T11:25:56.7109872Z /dev/sda15     vfat   105M  6.2M   99M   6% /boot/efi
+2026-11-14T11:25:56.7110227Z tmpfs          tmpfs  1.6G  5.7M  1.6G   1% /run/user/1001
+2026-11-14T11:25:56.7110565Z tmpfs          tmpfs  7.9G     0  7.9G   0% /run/qemu
+2026-11-14T11:25:56.7179802Z ##[error]Process completed with exit code 1.
+2026-11-14T11:25:56.7475668Z Post job cleanup.
+2026-11-14T11:25:56.9906067Z [command]/usr/bin/git version
+2026-11-14T11:25:56.9965942Z git version 2.56.1
+2026-11-14T11:25:57.0073512Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/24570277-67cb-4b0c-8de2-da357b5592ef/.gitconfig'
+2026-11-14T11:25:57.0074771Z Temporarily overriding HOME='/home/runner/work/_temp/24570277-67cb-4b0c-8de2-da357b5592ef' before making global git config changes
+2026-11-14T11:25:57.0075887Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-14T11:25:57.0077326Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kwrt-custom/kwrt-custom
+2026-11-14T11:25:57.0285514Z Removing SSH command configuration
+2026-11-14T11:25:57.0287311Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-14T11:25:57.0329435Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-14T11:25:57.0569868Z Removing HTTP extra header
+2026-11-14T11:25:57.0576228Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-14T11:25:57.0616526Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-14T11:25:57.0890832Z Removing includeIf entries pointing to credentials config files
+2026-11-14T11:25:57.0901892Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-14T11:25:57.0959494Z includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path
+2026-11-14T11:25:57.0971163Z includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path
+2026-11-14T11:25:57.0975821Z includeif.gitdir:/github/workspace/.git.path
+2026-11-14T11:25:57.0977362Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-14T11:25:57.0979432Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path
+2026-11-14T11:25:57.1016073Z /home/runner/work/_temp/git-credentials-bd0105c5-a03c-4a8c-a25b-f7f2f50d2b08.config
+2026-11-14T11:25:57.1053836Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-bd0105c5\-a03c\-4a8c\-a25b\-f7f2f50d2b08\.config
+2026-11-14T11:25:57.1107355Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path
+2026-11-14T11:25:57.1153184Z /home/runner/work/_temp/git-credentials-bd0105c5-a03c-4a8c-a25b-f7f2f50d2b08.config
+2026-11-14T11:25:57.1166326Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-bd0105c5\-a03c\-4a8c\-a25b\-f7f2f50d2b08\.config
+2026-11-14T11:25:57.1218013Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-14T11:25:57.1236527Z /github/runner_temp/git-credentials-bd0105c5-a03c-4a8c-a25b-f7f2f50d2b08.config
+2026-11-14T11:25:57.1247962Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-bd0105c5\-a03c\-4a8c\-a25b\-f7f2f50d2b08\.config
+2026-11-14T11:25:57.1297400Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-14T11:25:57.1322874Z /github/runner_temp/git-credentials-bd0105c5-a03c-4a8c-a25b-f7f2f50d2b08.config
+2026-11-14T11:25:57.1329572Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-bd0105c5\-a03c\-4a8c\-a25b\-f7f2f50d2b08\.config
+2026-11-14T11:25:57.1368699Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-14T11:25:57.1581828Z Removing credentials config '/home/runner/work/_temp/git-credentials-bd0105c5-a03c-4a8c-a25b-f7f2f50d2b08.config'
+2026-11-14T11:25:57.1778658Z Cleaning up orphan processes
