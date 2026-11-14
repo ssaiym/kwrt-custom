@@ -124,7 +124,8 @@ gen_one() {
 	uci set firewall.fwd_$id.dest="wan"
 
 	# passwall ACL (bind this interface to the chosen node)
-	uci -q set passwall.$id=ACLs
+	# NOTE: runtime (app.sh) enumerates sections of type "acl_rule"
+	uci -q set passwall.$id=acl_rule
 	uci set passwall.$id.enabled="1"
 	uci set passwall.$id.remarks="$name"
 	uci set passwall.$id.interface="$id"
@@ -167,6 +168,10 @@ fi
 /etc/init.d/dnsmasq restart >/dev/null 2>&1
 /etc/init.d/firewall reload >/dev/null 2>&1
 /etc/init.d/passwall restart >/dev/null 2>&1
+
+# passwall v1 gates ACL processing behind global acl_enable (default 0);
+# without this the per-SSID node binding is silently ignored.
+[ "$idx" -ge 1 ] && uci -q set passwall.@global[0].acl_enable="1"
 
 log "apply finished, $idx profile(s) active"
 exit 0

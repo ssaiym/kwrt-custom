@@ -20,16 +20,24 @@ uci:foreach("wireless", "wifi-device", function(sec)
 end)
 local has_wifi = (#radios > 0)
 
--- Enumerate passwall proxy nodes, label shows protocol type
+-- Enumerate passwall proxy nodes, label shows protocol type.
+-- Client node sections are typed "nodes" (older versions "node").
 local nodes = {}
-uci:foreach("passwall", "node", function(sec)
+local seen_nodes = {}
+local function collect_node(sec)
+	if seen_nodes[sec[".name"]] then
+		return
+	end
+	seen_nodes[sec[".name"]] = true
 	local label = sec.remarks or sec[".name"]
 	local t = sec.type or ""
 	if t ~= "" then
 		label = label .. " (" .. t .. ")"
 	end
 	nodes[#nodes + 1] = { sec[".name"], label }
-end)
+end
+uci:foreach("passwall", "nodes", collect_node)
+uci:foreach("passwall", "node", collect_node)
 
 -- The apply script numbers profiles by UCI order among enabled ones;
 -- mirror that numbering here so the table shows the real mapping.
@@ -166,9 +174,15 @@ m.on_after_commit = function(self)
 		local pass = uc:get("wifiproxy", "batch", "batch_password") or ""
 
 		local pool = {}
-		uc:foreach("passwall", "node", function(sec)
-			pool[#pool + 1] = sec[".name"]
-		end)
+		local seen_pool = {}
+		local function pool_node(sec)
+			if not seen_pool[sec[".name"]] then
+				seen_pool[sec[".name"]] = true
+				pool[#pool + 1] = sec[".name"]
+			end
+		end
+		uc:foreach("passwall", "nodes", pool_node)
+		uc:foreach("passwall", "node", pool_node)
 		local rl = {}
 		uc:foreach("wireless", "wifi-device", function(sec)
 			rl[#rl + 1] = sec[".name"]
