@@ -125,13 +125,17 @@ gen_one() {
 
 	# passwall ACL (bind this interface to the chosen node)
 	# NOTE: runtime (app.sh) enumerates sections of type "acl_rule"
-	uci -q set passwall.$id=acl_rule
-	uci set passwall.$id.enabled="1"
-	uci set passwall.$id.remarks="$name"
-	uci set passwall.$id.interface="$id"
-	uci -q add_list passwall.$id.sources="$subnet.0/24"
-	uci set passwall.$id.mode="1"
-	[ -n "$node" ] && uci set passwall.$id.node="$node"
+	if [ -f /etc/config/passwall ]; then
+		uci -q set passwall.$id=acl_rule
+		uci set passwall.$id.enabled="1"
+		uci set passwall.$id.remarks="$name"
+		uci set passwall.$id.interface="$id"
+		uci -q add_list passwall.$id.sources="$subnet.0/24"
+		uci set passwall.$id.mode="1"
+		[ -n "$node" ] && uci set passwall.$id.node="$node"
+	else
+		log "passwall not installed, ACL for $id skipped (network only)"
+	fi
 
 	log "generated $id ($name, subnet $subnet.0/24, max_clients $maxc, wifi $wifi_done)"
 }
@@ -155,7 +159,7 @@ uci commit wireless 2>/dev/null
 uci commit network 2>/dev/null
 uci commit dhcp 2>/dev/null
 uci commit firewall 2>/dev/null
-uci commit passwall 2>/dev/null
+[ -f /etc/config/passwall ] && uci commit passwall 2>/dev/null
 
 # ---- service reloads ------------------------------------------------------
 # Use incremental reloads: a full "network restart" tears down every
@@ -167,7 +171,7 @@ if have_wireless; then
 fi
 /etc/init.d/dnsmasq restart >/dev/null 2>&1
 /etc/init.d/firewall reload >/dev/null 2>&1
-/etc/init.d/passwall restart >/dev/null 2>&1
+[ -x /etc/init.d/passwall ] && /etc/init.d/passwall restart >/dev/null 2>&1
 
 # passwall v1 gates ACL processing behind global acl_enable (default 0);
 # without this the per-SSID node binding is silently ignored.
