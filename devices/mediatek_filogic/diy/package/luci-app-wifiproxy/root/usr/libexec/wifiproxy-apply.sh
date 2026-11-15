@@ -404,11 +404,22 @@ done
 if [ "$CFG_CHANGED" = "0" ]; then
 	log "no configuration change, nothing reloaded"
 else
+	log "changed:$(echo $DIRTY | sed 's/^/ /')"
 	case " $DIRTY " in
 		*" network "*|*" dhcp "*)
 			/etc/init.d/network reload >/dev/null 2>&1
+			# dnsmasq runs with nonwildcard=1, so it only binds interfaces that
+			# already have an address. Restarting before the guest interfaces
+			# are up leaves that SSID without DNS.
 			for pair in $MAP; do
-				ifup "wwifi${pair%%:*}" >/dev/null 2>&1
+				ifn="wwifi${pair%%:*}"
+				n=0
+				while [ "$n" -lt 10 ]; do
+					[ "$(ubus call "network.interface.$ifn" status 2>/dev/null |
+						jsonfilter -e '@.up' 2>/dev/null)" = "true" ] && break
+					n=$((n + 1))
+					sleep 1
+				done
 			done
 			/etc/init.d/dnsmasq restart >/dev/null 2>&1
 			;;
@@ -460,9 +471,17 @@ if [ "$(uci -q get 'passwall.@global[0].enabled')" = "1" ]; then
 		rp=$(redir_port_of "$id")
 		[ -n "$rp" ] || continue
 
+		# A full passwall start needs tens of seconds, and the init script may
+		# return while app.sh is still spawning cores. Wait for the start to
+		# finish before concluding that the core failed to bind, otherwise a
+		# healthy ACL would be disabled here.
 		w=0
-		while [ "$w" -lt 5 ]; do
+		while [ "$w" -lt 90 ]; do
 			port_listening "$rp" && break
+			pgrep -f "passwall/app[.]sh" >/dev/null 2>&1 || {
+				port_listening "$rp" && break
+				[ "$w" -ge 5 ] && break
+			}
 			sleep 1
 			w=$((w + 1))
 		done

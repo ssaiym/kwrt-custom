@@ -1,0 +1,33 @@
+#!/bin/sh /etc/rc.common
+# Re-apply the WiFi Proxy Matrix at boot and expose a manual "reconcile" action.
+#
+# The apply script is idempotent and ends with a health check that disables any
+# ACL whose node core failed to start. That matters after a reboot: passwall
+# recreates its REDIRECT rules from /etc/config/passwall, so a node that came
+# back broken would otherwise silently black-hole one SSID again.
+
+START=99
+STOP=10
+USE_PROCD=0
+
+APPLY=/usr/libexec/wifiproxy-apply.sh
+
+start() {
+	[ -x "$APPLY" ] || return 0
+	# passwall starts at 99 too; give it a head start so the cores we probe
+	# are the ones from this boot rather than leftovers.
+	sleep 20
+	"$APPLY" >/dev/null 2>&1
+}
+
+stop() {
+	return 0
+}
+
+restart() {
+	"$APPLY" >/dev/null 2>&1
+}
+
+service_triggers() {
+	procd_add_reload_trigger "wifiproxy"
+}
