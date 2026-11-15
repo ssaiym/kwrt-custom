@@ -1,0 +1,56 @@
+<%+header%>
+
+<h2 name="content"><%:Online Devices%> - <%=pcdata(iface)%></h2>
+
+<div class="cbi-map">
+	<div class="cbi-section">
+		<h3><%:Profile Details%></h3>
+		<div class="cbi-section-node">
+			<div class="cbi-value">
+				<label class="cbi-value-title"><%:SSID%></label>
+				<div class="cbi-value-field"><%=pcdata(ssid ~= "" and ssid or "-")%></div>
+			</div>
+			<div class="cbi-value">
+				<label class="cbi-value-title"><%:Interface%></label>
+				<div class="cbi-value-field"><code><%=pcdata(iface)%></code></div>
+			</div>
+			<div class="cbi-value">
+				<label class="cbi-value-title"><%:Subnet%></label>
+				<div class="cbi-value-field"><code><%=pcdata(subnet)%></code>
+					&nbsp;(<%:Gateway%>: <code><%=pcdata(gateway)%></code>)</div>
+			</div>
+			<div class="cbi-value cbi-value-last">
+				<label class="cbi-value-title"><%:Proxy Node%></label>
+				<div class="cbi-value-field"><%=pcdata(node ~= "" and node or "-")%></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="cbi-section">
+		<h3><%:Connected Clients%> (<%=#clients%>)</h3>
+		<% if #clients > 0 then %>
+		<table class="table cbi-section-table">
+			<tr class="tr cbi-section-table-titles">
+				<th class="th"><%:Hostname%></th>
+				<th class="th"><%:IP Address%></th>
+				<th class="th"><%:MAC Address%></th>
+			</tr>
+			<% for _, c in ipairs(clients) do %>
+			<tr class="tr cbi-section-table-row">
+				<td class="td"><%=pcdata(c.host)%></td>
+				<td class="td"><code><%=pcdata(c.ip)%></code></td>
+				<td class="td"><code><%=pcdata(c.mac)%></code></td>
+			</tr>
+			<% end %>
+		</table>
+		<% else %>
+		<div class="cbi-section-descr"><%:No client is currently connected to this WiFi.%></div>
+		<% end %>
+	</div>
+
+	<div class="cbi-page-actions">
+		<a class="cbi-button" href="<%=luci.dispatcher.build_url("admin", "services", "wifiproxy")%>"><%:Back%></a>
+	</div>
+</div>
+
+<%+footer%>

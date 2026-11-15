@@ -53,6 +53,8 @@ gen_one() {
 	node=$(uci -q get wifiproxy.$sid.node)
 	iso=$(uci -q get wifiproxy.$sid.isolate)
 	iso=${iso:-1}
+	proxy_mode=$(uci -q get wifiproxy.$sid.proxy_mode)
+	proxy_mode=${proxy_mode:-1}
 	maxc=$(uci -q get wifiproxy.$sid.max_clients)
 	maxc=${maxc:-8}
 	case "$maxc" in
@@ -133,6 +135,22 @@ gen_one() {
 		uci -q add_list passwall.$id.sources="$subnet.0/24"
 		uci set passwall.$id.mode="1"
 		[ -n "$node" ] && uci set passwall.$id.node="$node"
+
+		# Proxy mode: "1" = every connection of this subnet goes through the node.
+		# Split mode keeps passwall's China-direct lists, so the same phone shows
+		# different exit IPs depending on destination - not what a "one WiFi = one
+		# exit IP" setup wants.
+		if [ "$proxy_mode" = "1" ]; then
+			uci set passwall.$id.tcp_proxy_mode="proxy"
+			uci set passwall.$id.udp_proxy_mode="proxy"
+			uci set passwall.$id.use_direct_list="0"
+			uci set passwall.$id.use_proxy_list="0"
+			uci set passwall.$id.use_block_list="0"
+			uci set passwall.$id.use_gfw_list="0"
+		else
+			uci set passwall.$id.tcp_proxy_mode="proxy"
+			uci set passwall.$id.udp_proxy_mode="proxy"
+		fi
 	else
 		log "passwall not installed, ACL for $id skipped (network only)"
 	fi

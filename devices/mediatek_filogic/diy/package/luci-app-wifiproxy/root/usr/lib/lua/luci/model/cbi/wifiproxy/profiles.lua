@@ -149,9 +149,38 @@ for _, n in ipairs(nodes) do
 end
 o.rmempty = true
 
+o = s:option(ListValue, "proxy_mode", translate("Proxy Mode"),
+	translate("Global: every connection from this WiFi uses the chosen node (one fixed exit IP). "
+		.. "Split: passwall's China-direct lists apply, so domestic sites use the local IP."))
+o:value("1", translate("Global (all traffic through node)"))
+o:value("0", translate("Split (China direct, rest proxied)"))
+o.default = "1"
+o.rmempty = false
+
 o = s:option(DummyValue, "_iface", translate("Interface / Subnet"))
 function o.cfgvalue(self, section)
 	return row_info(section)
+end
+
+o = s:option(Button, "_clients", translate("Online Devices"))
+o.inputstyle = "apply"
+o.render = function(self, section, scope)
+	self.title = translate("Online Devices")
+	Button.render(self, section, scope)
+end
+function o.write(self, section)
+	local i = iface_map[section]
+	if not i then
+		return
+	end
+	local uc = require "luci.model.uci".cursor()
+	local name = uc:get("wifiproxy", section, "name") or ""
+	local node = uc:get("wifiproxy", section, "node") or ""
+	local url = luci.dispatcher.build_url("admin", "services", "wifiproxy", "clients")
+		.. "?index=" .. i
+		.. "&name=" .. luci.util.urlencode(name)
+		.. "&node=" .. luci.util.urlencode(node)
+	luci.http.redirect(url)
 end
 
 o = s:option(Flag, "isolate", translate("Client isolation"))

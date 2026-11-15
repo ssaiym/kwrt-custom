@@ -86,3 +86,48 @@ msgstr "接口未 UP"
 
 msgid "%d client(s) online"
 msgstr "%d 台设备在线"
+
+msgid "Proxy Mode"
+msgstr "代理模式"
+
+msgid "Global: every connection from this WiFi uses the chosen node (one fixed exit IP). Split: passwall's China-direct lists apply, so domestic sites use the local IP."
+msgstr "全局：该 WiFi 的所有连接都走所选节点（出口 IP 固定为节点 IP）。分流：适用 passwall 的国内直连规则，国内网站走本地 IP。"
+
+msgid "Global (all traffic through node)"
+msgstr "全局代理（全部走节点）"
+
+msgid "Split (China direct, rest proxied)"
+msgstr "智能分流（国内直连）"
+
+msgid "Online Devices"
+msgstr "在线设备"
+
+msgid "Profile Details"
+msgstr "方案详情"
+
+msgid "Interface"
+msgstr "网络接口"
+
+msgid "Subnet"
+msgstr "子网"
+
+msgid "Gateway"
+msgstr "网关"
+
+msgid "Connected Clients"
+msgstr "已连接设备"
+
+msgid "Hostname"
+msgstr "主机名"
+
+msgid "IP Address"
+msgstr "IP 地址"
+
+msgid "MAC Address"
+msgstr "MAC 地址"
+
+msgid "No client is currently connected to this WiFi."
+msgstr "当前没有设备连接到这个 WiFi。"
+
+msgid "Back"
+msgstr "返回"
