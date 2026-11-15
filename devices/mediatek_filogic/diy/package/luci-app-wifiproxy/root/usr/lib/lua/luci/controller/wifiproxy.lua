@@ -179,23 +179,26 @@ function status_json()
 	http.prepare_content("application/json")
 
 	local base = uci:get("wifiproxy", "config", "subnet_base") or "10.10"
-	local idx = 0
 	local parts = {}
 
 	uci:foreach("wifiproxy", "profile", function(sec)
-		if tostring(sec.enabled) ~= "0" then
-			idx = idx + 1
-			local ifn = "wwifi" .. idx
+		-- iface_index is assigned and persisted by wifiproxy-apply.sh; the
+		-- enumeration order is not the interface number (deleting a profile
+		-- must not renumber the others).
+		local i = tonumber(sec.iface_index)
+		if i and i >= 1 and tostring(sec.enabled) ~= "0" then
+			local ifn = "wwifi" .. i
 			local up = false
 			local st = sys.exec("ubus call network.interface." .. ifn .. " status 2>/dev/null")
 			if st ~= "" and st:match('"up"%s*:%s*true') then
 				up = true
 			end
-			local cnt = #collect_clients(base, idx)
+			local cnt = #collect_clients(base, i)
 			parts[#parts + 1] = string.format(
-				'{"section":"%s","iface":"%s","subnet":"%s.%d.0/24","up":%s,"clients":%d,"ssid":"%s","node":"%s"}',
-				sec[".name"], ifn, base, idx, tostring(up), cnt,
-				(sec.name or ""):gsub('"', '\\"'), (sec.node or ""):gsub('"', '\\"'))
+				'{"section":"%s","iface":"%s","subnet":"%s.%d.0/24","up":%s,"clients":%d,"ssid":"%s","node":"%s","error":"%s"}',
+				sec[".name"], ifn, base, i, tostring(up), cnt,
+				(sec.name or ""):gsub('"', '\\"'), (sec.node or ""):gsub('"', '\\"'),
+				(sec.last_error or ""):gsub('"', '\\"'))
 		end
 	end)
 

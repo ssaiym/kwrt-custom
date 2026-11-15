@@ -10,7 +10,7 @@ msgid "WiFi Proxy Matrix"
 msgstr "WiFi 代理矩阵"
 
 msgid "Quickly create WiFi networks bound to independent passwall proxy nodes. Each SSID gets its own subnet, DHCP pool, client isolation and a configurable client limit. Saving and applying regenerates network/dhcp/firewall/wireless and passwall ACL config."
-msgstr "快速创建绑定独立 passwall 代理节点的 WiFi 信号。每个 SSID 拥有独立子网、DHCP 池、客户端隔离和可自定义的连接人数上限。保存并应用后将自动重建 network/dhcp/firewall/wireless 与 passwall ACL 配置。"
+msgstr "快速创建绑定独立 passwall 代理节点的 WiFi 信号。每个 SSID 拥有独立子网、DHCP 池、客户端隔离和可自定义的连接人数上限。保存时只重建真正改动的部分，已有 WiFi 及其客户端不受影响。"
 
 msgid "General Settings"
 msgstr "通用设置"
@@ -24,8 +24,8 @@ msgstr "第 N 个方案使用 <base>.N.0/24 网段（网关 <base>.N.1）。"
 msgid "WiFi Profiles"
 msgstr "WiFi 方案列表"
 
-msgid "Each profile creates one WiFi signal. The radio list shows the real radios of this device; profiles without a radio (e.g. on devices without wifi) only generate network config."
-msgstr "每个方案对应一个 WiFi 信号。射频下拉框显示本机实际存在的射频；未选射频的方案（例如在无无线网卡的设备上）只生成网络配置。"
+msgid "Each profile creates one WiFi signal. The radio list shows the real radios of this device; profiles without a radio only generate network config."
+msgstr "每个方案对应一个 WiFi 信号。射频下拉框显示本机实际存在的射频；未选射频的方案只生成网络配置。"
 
 msgid "Enable"
 msgstr "启用"
@@ -131,3 +131,30 @@ msgstr "探测地址"
 
 msgid "Used by the node reachability test. Keep a small, fast 204 endpoint."
 msgstr "用于节点连通性检测。建议使用小体积、快速的 204 地址。"
+
+msgid "waiting for apply"
+msgstr "等待应用"
+
+msgid "no proxy"
+msgstr "未代理"
+
+msgid "proxied"
+msgstr "已代理"
+
+msgid "direct (no proxy)"
+msgstr "直连（未代理）"
+
+msgid "node not found"
+msgstr "节点不存在"
+
+msgid "node is disabled"
+msgstr "节点已被禁用"
+
+msgid "node has no address/port"
+msgstr "节点缺少地址或端口"
+
+msgid "node engine not installed (install it or switch the node to Sing-Box in passwall)"
+msgstr "节点内核未安装（请安装对应内核，或在 passwall 里把该节点改为 Sing-Box）"
+
+msgid "node engine did not start"
+msgstr "节点内核未能启动"

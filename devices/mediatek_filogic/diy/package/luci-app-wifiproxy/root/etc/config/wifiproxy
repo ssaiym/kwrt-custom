@@ -1,5 +1,6 @@
 config main 'config'
 	option subnet_base '10.10'
+	option probe_url 'https://www.gstatic.com/generate_204'
 
 config batch 'batch'
 	option batch_prefix 'PROXY'

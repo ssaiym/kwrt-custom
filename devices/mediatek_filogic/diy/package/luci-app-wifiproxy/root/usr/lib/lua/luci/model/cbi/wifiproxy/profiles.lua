@@ -31,22 +31,25 @@ local function collect_node(sec)
 	seen_nodes[sec[".name"]] = true
 	local label = sec.remarks or sec[".name"]
 	local t = sec.type or ""
-	if t ~= "" then
+	local p = sec.protocol or ""
+	if p == "" and t ~= "" then
 		label = label .. " (" .. t .. ")"
+	elseif p ~= "" then
+		label = label .. " (" .. t .. " / " .. p .. ")"
 	end
 	nodes[#nodes + 1] = { sec[".name"], label }
 end
 uci:foreach("passwall", "nodes", collect_node)
 uci:foreach("passwall", "node", collect_node)
 
--- The apply script numbers profiles by UCI order among enabled ones;
--- mirror that numbering here so the table shows the real mapping.
+-- Interface index is persisted by the apply script in iface_index; it is
+-- deliberately NOT derived from the row order, because renumbering on delete
+-- rewrites the SSID and subnet of every later profile.
 local iface_map = {}
-local idx = 0
 uci:foreach("wifiproxy", "profile", function(sec)
-	if tostring(sec.enabled) ~= "0" then
-		idx = idx + 1
-		iface_map[sec[".name"]] = idx
+	local i = tonumber(sec.iface_index)
+	if i and i >= 1 and tostring(sec.enabled) ~= "0" then
+		iface_map[sec[".name"]] = i
 	end
 end)
 
@@ -54,28 +57,67 @@ local function esc_dot(s)
 	return (s:gsub("%.", "%%."))
 end
 
+-- Readable text for the last_error code the apply script persisted.
+local function err_text(code)
+	if code == "node_missing" then
+		return translate("node not found")
+	elseif code == "node_disabled" then
+		return translate("node is disabled")
+	elseif code == "node_incomplete" then
+		return translate("node has no address/port")
+	elseif code == "engine_missing" then
+		return translate("node engine not installed (install it or switch the node to Sing-Box in passwall)")
+	elseif code == "start_failed" then
+		return translate("node engine did not start")
+	end
+	return nil
+end
+
 local function row_info(section)
 	local i = iface_map[section]
 	if not i then
-		return translate("not enabled")
+		return translate("waiting for apply")
 	end
 	local ifn = "wwifi" .. i
 	local info = ifn .. " | " .. base .. "." .. i .. ".0/24"
+
+	local code = uci:get("wifiproxy", section, "last_error")
+	local msg = err_text(code)
+	if msg then
+		return info .. " | " .. translate("no proxy") .. ": " .. msg
+	end
+
+	-- interface up?
 	local st = sys.exec("ubus call network.interface." .. ifn .. " status 2>/dev/null")
 	if st == "" then
-		return info .. " | " .. translate("not applied")
+		return info
 	end
-	if st:match('"up"%s*:%s*true') then
-		local pat = "^" .. esc_dot(base .. "." .. i) .. "%."
-		local cnt = sys.exec("awk '{n+=($3 ~ /" .. pat .. "/)?1:0} END{print n+0}' /tmp/dhcp.leases 2>/dev/null")
-		cnt = (cnt or "0"):gsub("%s+", "")
-		return info .. " | " .. string.format(translate("%d client(s) online"), tonumber(cnt) or 0)
+	if not st:match('"up"%s*:%s*true') then
+		return info .. " | " .. translate("interface down")
 	end
-	return info .. " | " .. translate("interface down")
+
+	-- passwall ACL up? its per-ACL redirect port must be listening
+	local var = sys.exec("cat /tmp/etc/passwall/var 2>/dev/null")
+	local rp = var and var:match("\nACL_" .. ifn .. "_redir_port=([0-9]+)")
+	local proxied = false
+	if rp then
+		local nl = sys.exec("netstat -tln 2>/dev/null")
+		proxied = nl and nl:find(":" .. rp .. " ", 1, true) ~= nil
+	end
+
+	local pat = "^" .. esc_dot(base .. "." .. i) .. "%."
+	local cnt = sys.exec("awk '{n+=($3 ~ /" .. pat .. "/)?1:0} END{print n+0}' /tmp/dhcp.leases 2>/dev/null")
+	cnt = (cnt or "0"):gsub("%s+", "")
+
+	local s = info .. " | " .. string.format(translate("%d client(s) online"), tonumber(cnt) or 0)
+	if proxied then
+		return s .. " | " .. translate("proxied")
+	end
+	return s .. " | " .. translate("direct (no proxy)")
 end
 
 m = Map("wifiproxy", translate("WiFi Proxy Matrix"),
-	translate("Quickly create WiFi networks bound to independent passwall proxy nodes. Each SSID gets its own subnet, DHCP pool, client isolation and a configurable client limit. Saving and applying regenerates network/dhcp/firewall/wireless and passwall ACL config."))
+	translate("Quickly create WiFi networks bound to independent passwall proxy nodes. Each SSID gets its own subnet, DHCP pool, client isolation and a configurable client limit. Saving regenerates only what changed, so existing WiFi networks and their clients are left alone."))
 
 -- Global settings
 s = m:section(NamedSection, "config", "main", translate("General Settings"))
@@ -91,7 +133,7 @@ o.rmempty = true
 
 -- Quick create: batch-generate profiles with round-robin node/radio assignment
 s = m:section(NamedSection, "batch", "batch", translate("Quick Create"),
-	translate("Batch-create WiFi profiles: proxy nodes are assigned round-robin, radios alternate when multiple radios exist, blank password = random per SSID. Takes effect after Save & Apply."))
+	translate("Batch-create WiFi profiles: proxy nodes are assigned round-robin, radios alternate when multiple radios exist, blank password = random per SSID. Runs once on Save & Apply, then the count resets."))
 s.addremove = false
 
 o = s:option(ListValue, "batch_count", translate("WiFi count"))
@@ -113,7 +155,7 @@ o.rmempty = true
 
 -- Profiles table
 s = m:section(TypedSection, "profile", translate("WiFi Profiles"),
-	translate("Each profile creates one WiFi signal. The radio list shows the real radios of this device; profiles without a radio (e.g. on devices without wifi) only generate network config."))
+	translate("Each profile creates one WiFi signal. The radio list shows the real radios of this device; profiles without a radio only generate network config."))
 s.addremove = true
 s.anonymous = true
 s.sortable = true
@@ -189,10 +231,11 @@ end
 o = s:option(Flag, "isolate", translate("Client isolation"))
 o.default = "1"
 
--- After every successful save: handle quick-create batch, then regenerate configs
+-- After every successful save: handle quick-create batch, then reconcile
 m.on_after_commit = function(self)
 	local uc = require "luci.model.uci".cursor()
 	local c = uc:get("wifiproxy", "batch", "batch_count")
+
 	if c and tonumber(c) and tonumber(c) >= 1 then
 		local n = math.min(tonumber(c), 8)
 		local prefix = uc:get("wifiproxy", "batch", "batch_prefix") or "PROXY"
@@ -261,10 +304,15 @@ m.on_after_commit = function(self)
 			uc:set("wifiproxy", sid, "isolate", "1")
 		end
 
+		-- One-shot: the count must not survive, otherwise editing any single
+		-- row would spawn another batch of profiles.
 		uc:delete("wifiproxy", "batch", "batch_count")
 		uc:delete("wifiproxy", "batch", "batch_password")
 		uc:commit("wifiproxy")
 	end
+
+	-- Apply runs in the background; the page is served from uci, and the
+	-- script only touches services for the config files it actually changed.
 	sys.call("/usr/libexec/wifiproxy-apply.sh >/tmp/wifiproxy-apply.log 2>&1 &")
 end
 
