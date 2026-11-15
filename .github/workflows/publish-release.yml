@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       run_id:
-        description: "Build run ID whose artifacts to publish (e.g. 43630342250)"
+        description: "Build run ID whose artifacts to publish"
         required: true
 
 permissions:
@@ -15,70 +15,60 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact from the build run
+      - name: Download artifacts of the build run
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUN_ID: ${{ github.event.inputs.run_id }}
         run: |
-          set -e
-          mkdir -p out
-          # list artifacts of that run, then download each one
+          set -eu
           curl -sL -H "Authorization: token $GH_TOKEN" \
             "${{ github.api_url }}/repos/${{ github.repository }}/actions/runs/${RUN_ID}/artifacts" \
             -o artifacts.json
-          python3 - <<'EOF'
-          import json, os, subprocess
-          d = json.load(open('artifacts.json'))
-          for a in d.get('artifacts', []):
-              print('artifact:', a['id'], a['name'], a['size_in_bytes'])
-              url = f"${{ github.api_url }}" if False else None
-          json.dump(d, open('artifacts.json','w'))
-          EOF
-          cat artifacts.json | head -c 600
-          echo
-
-      - name: Fetch artifact zips
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RUN_ID: ${{ github.event.inputs.run_id }}
-        run: |
-          set -e
-          n=0
-          for id in $(grep -o '"id": *[0-9]*' artifacts.json | grep -o '[0-9]*' | head -3); do
-            n=$((n+1))
-            echo "downloading artifact id=$id"
+          python3 -c "
+import json
+d = json.load(open('artifacts.json'))
+for a in d.get('artifacts', []):
+    print(a['id'], a['name'], a['size_in_bytes'])
+" > artifact_list.txt
+          cat artifact_list.txt
+          mkdir -p zips
+          while read -r id name size; do
+            echo "downloading $name ($id)"
             curl -sL -H "Authorization: token $GH_TOKEN" \
               "${{ github.api_url }}/repos/${{ github.repository }}/actions/artifacts/${id}/zip" \
-              -o "art-${id}.zip" || true
-            ls -lh "art-${id}.zip" || true
-          done
+              -o "zips/${name}.zip"
+            ls -lh "zips/${name}.zip"
+          done < artifact_list.txt
 
-      - name: Extract AX3000T images
+      - name: Extract and select AX3000T stock image
         run: |
-          set -e
-          mkdir -p out
-          for z in art-*.zip; do
-            [ -f "$z" ] || continue
-            unzip -o -q "$z" -d work || echo "unzip warning for $z"
+          set -eu
+          mkdir -p work out
+          for z in zips/*.zip; do
+            unzip -o -q "$z" -d work || echo "warn: $z"
           done
-          echo "=== all sysupgrade files found ==="
-          find work -type f -name '*sysupgrade*' 2>/dev/null | head -20
-          echo "=== ax3000t files ==="
-          find work -type f -iname '*ax3000t*' 2>/dev/null | head -20
-          # copy the stock-layout sysupgrade (not ubootmod) plus manifest/sha256
-          find work -type f -iname '*xiaomi_mi-router-ax3000t-sysupgrade.bin' -exec cp {} out/ \; || true
-          find work -type f -iname '*xiaomi_mi-router-ax3000t*.manifest' -exec cp {} out/ \; || true
-          find work -type f -name 'sha256sums' -exec cp {} out/ \; || true
-          echo "=== out/ ==="
+          echo "=== candidate images ==="
+          find work -type f \( -name '*.bin' -o -name '*.itb' -o -name '*.manifest' \) | head -40
+          echo "=== copying stock-layout AX3000T image ==="
+          # stock layout filename: ...xiaomi_mi-router-ax3000t-squashfs-sysupgrade.bin
+          # explicitly exclude the ubootmod variant
+          find work -type f -name '*xiaomi_mi-router-ax3000t*sysupgrade*.bin' \
+            ! -name '*ubootmod*' -exec cp -v {} out/ \;
+          find work -type f -name '*xiaomi_mi-router-ax3000t*.manifest' \
+            ! -name '*ubootmod*' -exec cp -v {} out/ \; || true
+          echo "=== result ==="
           ls -lh out/ || true
 
-      - name: Fail if nothing to publish
+      - name: Verify image exists
         run: |
-          if [ -z "$(ls -A out 2>/dev/null)" ]; then
-            echo "No firmware files extracted - check artifact layout"
-            find work -maxdepth 4 -type d 2>/dev/null | head -30
+          set -eu
+          test -n "$(ls -A out/*.bin 2>/dev/null)" || {
+            echo "ERROR: no .bin produced. ARTIFACT CONTENTS:"
+            find work -maxdepth 5 -type d | head -40
+            echo "--- all files (first 60) ---"
+            find work -type f | head -60
             exit 1
-          fi
+          }
 
       - name: Publish to release
         uses: softprops/action-gh-release@master
@@ -88,5 +78,7 @@ jobs:
           tag_name: "ax3000t-run${{ github.event.inputs.run_id }}"
           body: |
             Xiaomi Mi Router AX3000T - stock layout sysupgrade image.
-            Published from build run ${{ github.event.inputs.run_id }}.
+            Contains luci-app-wifiproxy (WiFi Proxy Matrix, zh_Hans) + luci-app-passwall v1 (sing-box)
+            + passwall2 + tailscale + zerotier + frpc + wireguard.
+
             Flash via Kwrt web UI: System -> Backup/Flash Firmware, uncheck "keep settings".
