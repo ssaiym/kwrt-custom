@@ -84,6 +84,11 @@ o = s:option(Value, "subnet_base", translate("Guest subnet base"),
 o.placeholder = "10.10"
 o.rmempty = false
 
+o = s:option(Value, "probe_url", translate("Probe URL"),
+	translate("Used by the node reachability test. Keep a small, fast 204 endpoint."))
+o.placeholder = "https://www.gstatic.com/generate_204"
+o.rmempty = true
+
 -- Quick create: batch-generate profiles with round-robin node/radio assignment
 s = m:section(NamedSection, "batch", "batch", translate("Quick Create"),
 	translate("Batch-create WiFi profiles: proxy nodes are assigned round-robin, radios alternate when multiple radios exist, blank password = random per SSID. Takes effect after Save & Apply."))
@@ -149,11 +154,9 @@ for _, n in ipairs(nodes) do
 end
 o.rmempty = true
 
-o = s:option(ListValue, "proxy_mode", translate("Proxy Mode"),
-	translate("Global: every connection from this WiFi uses the chosen node (one fixed exit IP). "
-		.. "Split: passwall's China-direct lists apply, so domestic sites use the local IP."))
-o:value("1", translate("Global (all traffic through node)"))
-o:value("0", translate("Split (China direct, rest proxied)"))
+o = s:option(Flag, "proxy_mode", translate("Global Proxy"),
+	translate("ON: every connection from this WiFi uses the chosen node (one fixed exit IP). "
+		.. "OFF: passwall's China-direct lists apply, so domestic sites use the local IP."))
 o.default = "1"
 o.rmempty = false
 

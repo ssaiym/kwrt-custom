@@ -87,18 +87,6 @@ msgstr "接口未 UP"
 msgid "%d client(s) online"
 msgstr "%d 台设备在线"
 
-msgid "Proxy Mode"
-msgstr "代理模式"
-
-msgid "Global: every connection from this WiFi uses the chosen node (one fixed exit IP). Split: passwall's China-direct lists apply, so domestic sites use the local IP."
-msgstr "全局：该 WiFi 的所有连接都走所选节点（出口 IP 固定为节点 IP）。分流：适用 passwall 的国内直连规则，国内网站走本地 IP。"
-
-msgid "Global (all traffic through node)"
-msgstr "全局代理（全部走节点）"
-
-msgid "Split (China direct, rest proxied)"
-msgstr "智能分流（国内直连）"
-
 msgid "Online Devices"
 msgstr "在线设备"
 
@@ -131,3 +119,15 @@ msgstr "当前没有设备连接到这个 WiFi。"
 
 msgid "Back"
 msgstr "返回"
+
+msgid "Global Proxy"
+msgstr "全局代理"
+
+msgid "ON: every connection from this WiFi uses the chosen node (one fixed exit IP). OFF: passwall's China-direct lists apply, so domestic sites use the local IP."
+msgstr "开启：该 WiFi 的所有连接都走所选节点（出口 IP 固定为节点 IP）。关闭：适用 passwall 的国内直连规则，国内网站走本地 IP。"
+
+msgid "Probe URL"
+msgstr "探测地址"
+
+msgid "Used by the node reachability test. Keep a small, fast 204 endpoint."
+msgstr "用于节点连通性检测。建议使用小体积、快速的 204 地址。"
