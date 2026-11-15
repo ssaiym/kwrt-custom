@@ -1,15 +1,20 @@
-name: Dump Failed Log
+name: Dump Failed Log / Publish Firmware
 
 on:
   workflow_dispatch:
     inputs:
       jobid:
-        description: "Job ID to dump (from .../actions/runs/<runid>/jobs)"
+        description: "Job ID to dump logs from (empty = latest failed run)"
+        required: false
+        default: ""
+      publish_run:
+        description: "Build run ID to publish as a Release (empty = only dump logs)"
         required: false
         default: ""
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   dump:
@@ -17,7 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: Fetch failed job log and commit the tail
+      - name: Dump failed job log
+        if: github.event.inputs.publish_run == ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -31,7 +37,6 @@ jobs:
           curl -sL -H "Authorization: token $GH_TOKEN" \
             "${{ github.api_url }}/repos/${{ github.repository }}/actions/jobs/$JOBID/logs" -o compile.log
           echo "log_bytes=$(wc -c < compile.log)"
-          # full log + resolved ssl-related .config selections (the workflow cats .config into the log)
           grep -aE "CONFIG_PACKAGE_(libustream[-a-z0-9]*|ustream-ssl[-a-z0-9]*|uhttpd[a-z-]*|nginx[a-z-]*|wget-ssl|libmbedtls|libopenssl|libwolfssl|mbedtls[a-z-]*|wolfssl|openssl)[-= ]" compile.log > config-ssl.txt || true
           grep -aA8 "variables are used in this project" compile.log > cmake-notfound.txt || true
           {
@@ -57,3 +62,58 @@ jobs:
           git commit -m "ci: dump compile log tail (job $JOBID)" || true
           git pull --rebase || true
           git push
+
+      - name: Download build artifacts
+        if: github.event.inputs.publish_run != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.inputs.publish_run }}
+        run: |
+          set -eu
+          curl -sL -H "Authorization: token $GH_TOKEN" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/actions/runs/${RUN_ID}/artifacts" \
+            -o artifacts.json
+          python3 -c "
+import json
+d = json.load(open('artifacts.json'))
+for a in d.get('artifacts', []):
+    print(a['id'], a['name'], a['size_in_bytes'])
+" > artifact_list.txt
+          cat artifact_list.txt
+          mkdir -p zips
+          while read -r id name size; do
+            echo "downloading $name ($id, $size bytes)"
+            curl -sL -H "Authorization: token $GH_TOKEN" \
+              "${{ github.api_url }}/repos/${{ github.repository }}/actions/artifacts/${id}/zip" \
+              -o "zips/${name}.zip"
+            ls -lh "zips/${name}.zip"
+          done < artifact_list.txt
+
+      - name: Extract AX3000T stock image
+        if: github.event.inputs.publish_run != ''
+        run: |
+          set -eu
+          mkdir -p work out
+          for z in zips/*.zip; do
+            unzip -o -q "$z" -d work || echo "warn: $z"
+          done
+          echo "=== candidate files ==="
+          find work -type f \( -name '*.bin' -o -name '*.manifest' \) | head -40
+          echo "=== copying stock-layout AX3000T image (exclude ubootmod) ==="
+          find work -type f -name '*xiaomi_mi-router-ax3000t*sysupgrade*.bin' ! -name '*ubootmod*' -exec cp -v {} out/ \;
+          find work -type f -name '*xiaomi_mi-router-ax3000t*.manifest' ! -name '*ubootmod*' -exec cp -v {} out/ \; || true
+          ls -lh out/ || true
+
+      - name: Publish to release
+        if: github.event.inputs.publish_run != ''
+        uses: softprops/action-gh-release@master
+        with:
+          files: out/*
+          name: "AX3000T firmware (build ${{ github.event.inputs.publish_run }})"
+          tag_name: "ax3000t-${{ github.event.inputs.publish_run }}"
+          body: |
+            Xiaomi Mi Router AX3000T - stock layout sysupgrade image.
+            Includes luci-app-wifiproxy (WiFi Proxy Matrix, zh_Hans), luci-app-passwall v1 (sing-box),
+            passwall2, tailscale, zerotier, frpc, wireguard.
+
+            Flash: Kwrt web UI -> System -> Backup/Flash Firmware, uncheck "keep settings".
