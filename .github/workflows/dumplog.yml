@@ -73,12 +73,7 @@ jobs:
           curl -sL -H "Authorization: token $GH_TOKEN" \
             "${{ github.api_url }}/repos/${{ github.repository }}/actions/runs/${RUN_ID}/artifacts" \
             -o artifacts.json
-          python3 -c "
-import json
-d = json.load(open('artifacts.json'))
-for a in d.get('artifacts', []):
-    print(a['id'], a['name'], a['size_in_bytes'])
-" > artifact_list.txt
+          python3 -c 'import json;[print(a["id"],a["name"],a["size_in_bytes"]) for a in json.load(open("artifacts.json")).get("artifacts",[])]' > artifact_list.txt
           cat artifact_list.txt
           mkdir -p zips
           while read -r id name size; do
