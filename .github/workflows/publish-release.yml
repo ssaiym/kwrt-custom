@@ -1,0 +1,92 @@
+name: Publish Firmware to Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Build run ID whose artifacts to publish (e.g. 43630342250)"
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact from the build run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.inputs.run_id }}
+        run: |
+          set -e
+          mkdir -p out
+          # list artifacts of that run, then download each one
+          curl -sL -H "Authorization: token $GH_TOKEN" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/actions/runs/${RUN_ID}/artifacts" \
+            -o artifacts.json
+          python3 - <<'EOF'
+          import json, os, subprocess
+          d = json.load(open('artifacts.json'))
+          for a in d.get('artifacts', []):
+              print('artifact:', a['id'], a['name'], a['size_in_bytes'])
+              url = f"${{ github.api_url }}" if False else None
+          json.dump(d, open('artifacts.json','w'))
+          EOF
+          cat artifacts.json | head -c 600
+          echo
+
+      - name: Fetch artifact zips
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.inputs.run_id }}
+        run: |
+          set -e
+          n=0
+          for id in $(grep -o '"id": *[0-9]*' artifacts.json | grep -o '[0-9]*' | head -3); do
+            n=$((n+1))
+            echo "downloading artifact id=$id"
+            curl -sL -H "Authorization: token $GH_TOKEN" \
+              "${{ github.api_url }}/repos/${{ github.repository }}/actions/artifacts/${id}/zip" \
+              -o "art-${id}.zip" || true
+            ls -lh "art-${id}.zip" || true
+          done
+
+      - name: Extract AX3000T images
+        run: |
+          set -e
+          mkdir -p out
+          for z in art-*.zip; do
+            [ -f "$z" ] || continue
+            unzip -o -q "$z" -d work || echo "unzip warning for $z"
+          done
+          echo "=== all sysupgrade files found ==="
+          find work -type f -name '*sysupgrade*' 2>/dev/null | head -20
+          echo "=== ax3000t files ==="
+          find work -type f -iname '*ax3000t*' 2>/dev/null | head -20
+          # copy the stock-layout sysupgrade (not ubootmod) plus manifest/sha256
+          find work -type f -iname '*xiaomi_mi-router-ax3000t-sysupgrade.bin' -exec cp {} out/ \; || true
+          find work -type f -iname '*xiaomi_mi-router-ax3000t*.manifest' -exec cp {} out/ \; || true
+          find work -type f -name 'sha256sums' -exec cp {} out/ \; || true
+          echo "=== out/ ==="
+          ls -lh out/ || true
+
+      - name: Fail if nothing to publish
+        run: |
+          if [ -z "$(ls -A out 2>/dev/null)" ]; then
+            echo "No firmware files extracted - check artifact layout"
+            find work -maxdepth 4 -type d 2>/dev/null | head -30
+            exit 1
+          fi
+
+      - name: Publish to release
+        uses: softprops/action-gh-release@master
+        with:
+          files: out/*
+          name: "AX3000T firmware (build run ${{ github.event.inputs.run_id }})"
+          tag_name: "ax3000t-run${{ github.event.inputs.run_id }}"
+          body: |
+            Xiaomi Mi Router AX3000T - stock layout sysupgrade image.
+            Published from build run ${{ github.event.inputs.run_id }}.
+            Flash via Kwrt web UI: System -> Backup/Flash Firmware, uncheck "keep settings".
