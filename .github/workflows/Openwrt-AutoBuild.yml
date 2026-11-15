@@ -29,6 +29,9 @@ env:
   DOCKER_PASSWD: ${{ secrets.DOCKER_PASSWD }}
   TZ: Asia/Shanghai
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -286,17 +289,25 @@ jobs:
         [ ${{ env.COWURL }} ] && echo -e "[奶牛上传] (${{ env.COWURL }} 🐮)\n" >> release.txt
         [ ${{ env.NOTICE }} ] && echo -e "${{ env.NOTICE }}" >> release.txt || true
 
-    - name: Upload firmware for release
+    - name: Publish AX3000T images to release
       uses: softprops/action-gh-release@master
       continue-on-error: true
-      if: env.REPO_TOKEN && env.UPLOAD_FIRMWARE_FOR_RELEASE == 'true'
+      if: success()
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_KIDDIN9 }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        files: "${{ env.FIRMWARE }}/*"
-        name: ${{ env.date2 }} ${{matrix.target}} ${{ env.EMOJI }}
-        tag_name: ${{ env.date }}_${{matrix.target}}
-        body_path: release.txt
+        files: |
+          openwrt/bin/targets/mediatek/filogic/*xiaomi_mi-router-ax3000t-sysupgrade.bin
+          openwrt/bin/targets/mediatek/filogic/*xiaomi_mi-router-ax3000t*.manifest
+          openwrt/bin/targets/mediatek/filogic/sha256sums
+        name: "AX3000T ${{ env.VERSION }} (${{ github.run_number }})"
+        tag_name: "ax3000t-${{ env.VERSION }}-${{ github.run_number }}"
+        body: |
+          Xiaomi Mi Router AX3000T firmware
+          - luci-app-wifiproxy (WiFi Proxy Matrix, zh_Hans)
+          - luci-app-passwall v1 (sing-box core)
+          - passwall2 / tailscale / zerotier / frpc / wireguard
+          Flash via Kwrt web: System -> Backup/Flash Firmware, uncheck "keep settings".
     
     - name: WeChat notification
       continue-on-error: true
@@ -314,16 +325,16 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       continue-on-error: true
       with:
-        token: ${{ secrets.TOKEN_KIDDIN9 }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         retain_days: 100
         keep_minimum_runs: 0
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@master
       continue-on-error: true
-      if: env.UPLOAD_FIRMWARE_FOR_RELEASE == 'true' && !cancelled()
+      if: success() && !cancelled()
       with:
-        keep_latest: 15
+        keep_latest: 10
         delete_tags: true
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_KIDDIN9 }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
