@@ -1,178 +1,164 @@
-job=132444867460 log_bytes=1255169
+job=132555321705 log_bytes=1423383
 === ssl-related config selections ===
-2026-11-14T12:26:14.2333663Z # CONFIG_PACKAGE_libmbedtls is not set
-2026-11-14T12:26:14.2333825Z CONFIG_PACKAGE_libopenssl=y
-2026-11-14T12:26:14.2337101Z # CONFIG_PACKAGE_libopenssl-afalg is not set
-2026-11-14T12:26:14.2337199Z # CONFIG_PACKAGE_libopenssl-afalg_sync is not set
-2026-11-14T12:26:14.2337290Z # CONFIG_PACKAGE_libopenssl-conf is not set
-2026-11-14T12:26:14.2337387Z # CONFIG_PACKAGE_libopenssl-devcrypto is not set
-2026-11-14T12:26:14.2337487Z # CONFIG_PACKAGE_libopenssl-gost_engine is not set
-2026-11-14T12:26:14.2337575Z # CONFIG_PACKAGE_libopenssl-legacy is not set
-2026-11-14T12:26:14.2337678Z # CONFIG_PACKAGE_libopenssl-oqsprovider is not set
-2026-11-14T12:26:14.2337838Z # CONFIG_PACKAGE_libwolfssl is not set
-2026-11-14T12:26:14.2370418Z # CONFIG_PACKAGE_libopenssl-gost-engine is not set
-2026-11-14T12:26:14.2370531Z # CONFIG_PACKAGE_libopenssl-gost-provider is not set
-2026-11-14T12:26:14.2380697Z # CONFIG_PACKAGE_libustream-mbedtls is not set
-2026-11-14T12:26:14.2380794Z # CONFIG_PACKAGE_libustream-openssl is not set
-2026-11-14T12:26:14.2380878Z # CONFIG_PACKAGE_libustream-wolfssl is not set
-2026-11-14T12:26:14.2476920Z CONFIG_PACKAGE_wget-ssl=y
-2026-11-14T12:26:14.2540095Z # CONFIG_PACKAGE_nginx-full is not set
-2026-11-14T12:26:14.2540175Z # CONFIG_PACKAGE_nginx-mod-brotli is not set
-2026-11-14T12:26:14.2540263Z # CONFIG_PACKAGE_nginx-mod-dav-ext is not set
-2026-11-14T12:26:14.2540345Z # CONFIG_PACKAGE_nginx-mod-geoip2 is not set
-2026-11-14T12:26:14.2540443Z # CONFIG_PACKAGE_nginx-mod-headers-more is not set
-2026-11-14T12:26:14.2540622Z # CONFIG_PACKAGE_nginx-mod-lua is not set
-2026-11-14T12:26:14.2540737Z # CONFIG_PACKAGE_nginx-mod-lua-resty-core is not set
-2026-11-14T12:26:14.2540854Z # CONFIG_PACKAGE_nginx-mod-lua-resty-lrucache is not set
-2026-11-14T12:26:14.2540930Z CONFIG_PACKAGE_nginx-mod-luci=m
-2026-11-14T12:26:14.2541012Z # CONFIG_PACKAGE_nginx-mod-naxsi is not set
-2026-11-14T12:26:14.2541088Z # CONFIG_PACKAGE_nginx-mod-njs is not set
-2026-11-14T12:26:14.2541173Z # CONFIG_PACKAGE_nginx-mod-rtmp is not set
-2026-11-14T12:26:14.2541253Z # CONFIG_PACKAGE_nginx-mod-stream is not set
-2026-11-14T12:26:14.2541333Z # CONFIG_PACKAGE_nginx-mod-ts is not set
-2026-11-14T12:26:14.2541407Z CONFIG_PACKAGE_nginx-mod-ubus=m
-2026-11-14T12:26:14.2541476Z CONFIG_PACKAGE_nginx-ssl=m
-2026-11-14T12:26:14.2544661Z CONFIG_PACKAGE_nginx-ssl-util=m
-2026-11-14T12:26:14.2544760Z # CONFIG_PACKAGE_nginx-ssl-util-nopcre is not set
-2026-11-14T12:26:14.2549741Z # CONFIG_PACKAGE_uhttpd is not set
-2026-11-14T12:26:14.2653296Z # CONFIG_PACKAGE_mbedtls-util is not set
-2026-11-14T12:26:14.2656646Z # CONFIG_PACKAGE_openssl-util is not set
+2026-11-14T19:13:09.9467304Z CONFIG_PACKAGE_libmbedtls=y
+2026-11-14T19:13:09.9475168Z CONFIG_PACKAGE_libopenssl=y
+2026-11-14T19:13:09.9479096Z # CONFIG_PACKAGE_libopenssl-afalg is not set
+2026-11-14T19:13:09.9479223Z # CONFIG_PACKAGE_libopenssl-afalg_sync is not set
+2026-11-14T19:13:09.9479324Z # CONFIG_PACKAGE_libopenssl-conf is not set
+2026-11-14T19:13:09.9479448Z # CONFIG_PACKAGE_libopenssl-devcrypto is not set
+2026-11-14T19:13:09.9479573Z # CONFIG_PACKAGE_libopenssl-gost_engine is not set
+2026-11-14T19:13:09.9479681Z # CONFIG_PACKAGE_libopenssl-legacy is not set
+2026-11-14T19:13:09.9479812Z # CONFIG_PACKAGE_libopenssl-oqsprovider is not set
+2026-11-14T19:13:09.9480012Z # CONFIG_PACKAGE_libwolfssl is not set
+2026-11-14T19:13:09.9518955Z # CONFIG_PACKAGE_libopenssl-gost-engine is not set
+2026-11-14T19:13:09.9519084Z # CONFIG_PACKAGE_libopenssl-gost-provider is not set
+2026-11-14T19:13:09.9531235Z CONFIG_PACKAGE_libustream-mbedtls=y
+2026-11-14T19:13:09.9531353Z # CONFIG_PACKAGE_libustream-openssl is not set
+2026-11-14T19:13:09.9531466Z # CONFIG_PACKAGE_libustream-wolfssl is not set
+2026-11-14T19:13:09.9653914Z CONFIG_PACKAGE_wget-ssl=y
+2026-11-14T19:13:09.9726845Z # CONFIG_PACKAGE_nginx-full is not set
+2026-11-14T19:13:09.9727012Z # CONFIG_PACKAGE_nginx-mod-brotli is not set
+2026-11-14T19:13:09.9727131Z # CONFIG_PACKAGE_nginx-mod-dav-ext is not set
+2026-11-14T19:13:09.9727232Z # CONFIG_PACKAGE_nginx-mod-geoip2 is not set
+2026-11-14T19:13:09.9727364Z # CONFIG_PACKAGE_nginx-mod-headers-more is not set
+2026-11-14T19:13:09.9727461Z # CONFIG_PACKAGE_nginx-mod-lua is not set
+2026-11-14T19:13:09.9727592Z # CONFIG_PACKAGE_nginx-mod-lua-resty-core is not set
+2026-11-14T19:13:09.9727741Z # CONFIG_PACKAGE_nginx-mod-lua-resty-lrucache is not set
+2026-11-14T19:13:09.9727839Z CONFIG_PACKAGE_nginx-mod-luci=y
+2026-11-14T19:13:09.9727951Z # CONFIG_PACKAGE_nginx-mod-naxsi is not set
+2026-11-14T19:13:09.9728049Z # CONFIG_PACKAGE_nginx-mod-njs is not set
+2026-11-14T19:13:09.9728157Z # CONFIG_PACKAGE_nginx-mod-rtmp is not set
+2026-11-14T19:13:09.9728259Z # CONFIG_PACKAGE_nginx-mod-stream is not set
+2026-11-14T19:13:09.9728363Z # CONFIG_PACKAGE_nginx-mod-ts is not set
+2026-11-14T19:13:09.9728459Z CONFIG_PACKAGE_nginx-mod-ubus=y
+2026-11-14T19:13:09.9728555Z CONFIG_PACKAGE_nginx-ssl=y
+2026-11-14T19:13:09.9732525Z CONFIG_PACKAGE_nginx-ssl-util=y
+2026-11-14T19:13:09.9732652Z # CONFIG_PACKAGE_nginx-ssl-util-nopcre is not set
+2026-11-14T19:13:09.9739139Z # CONFIG_PACKAGE_uhttpd is not set
+2026-11-14T19:13:09.9866882Z # CONFIG_PACKAGE_mbedtls-util is not set
+2026-11-14T19:13:09.9870932Z # CONFIG_PACKAGE_openssl-util is not set
 === cmake NOTFOUND details ===
-2026-11-14T15:55:44.2555873Z CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
-2026-11-14T15:55:44.2556321Z Please set them or make sure they are set and tested correctly in the CMake files:
-2026-11-14T15:55:44.2556641Z mbedcrypto_library
-2026-11-14T15:55:44.2557213Z     linked by target "ustream-ssl" in directory /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db
-2026-11-14T15:55:44.2557793Z mbedtls_library
-2026-11-14T15:55:44.2558330Z     linked by target "ustream-ssl" in directory /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db
-2026-11-14T15:55:44.2558903Z mbedx509_library
-2026-11-14T15:55:44.2559608Z     linked by target "ustream-ssl" in directory /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db
-2026-11-14T15:55:44.2560271Z 
 === toolchain / go errors ===
-2026-11-14T12:26:14.2238602Z # CONFIG_PACKAGE_golang1.26-misc is not set
-2026-11-14T12:26:14.2238677Z # CONFIG_PACKAGE_golang1.26-src is not set
-2026-11-14T12:26:14.2238768Z # CONFIG_PACKAGE_golang1.26-tests is not set
-2026-11-14T12:26:14.2732281Z   toolchain: true
-2026-11-14T12:26:14.8515502Z [36;1mrm -rf staging_dir/toolchain-*/bin/*openwrt-linux-musl-lto-dump[0m
-2026-11-14T12:26:14.8515832Z [36;1mrm -rf staging_dir/toolchain-*/initial[0m
-2026-11-14T12:42:37.8396039Z  make[2] toolchain/compile
-2026-11-14T12:42:39.7288287Z  make[3] -C toolchain/binutils compile
-2026-11-14T12:42:39.7297907Z  make[3] -C toolchain/gdb compile
-2026-11-14T12:42:39.7309533Z  make[3] -C toolchain/fortify-headers compile
-2026-11-14T12:44:29.9136313Z  make[3] -C toolchain/gcc/initial compile
-2026-11-14T12:54:19.5442848Z  make[3] -C toolchain/kernel-headers compile
-2026-11-14T12:54:46.7822601Z  make[3] -C toolchain/musl compile
-2026-11-14T12:55:30.1590236Z  make[3] -C toolchain/gcc/final compile
-2026-11-14T13:15:24.2789461Z  make[3] -C package/libs/toolchain compile
-2026-11-14T13:15:31.3185745Z  make[3] -C feeds/packages/lang/golang/golang-bootstrap host-compile
-2026-11-14T13:33:24.3450625Z  make[3] -C feeds/packages/lang/golang/golang1.26 host-compile
-2026-11-14T13:40:44.6060162Z  make[3] -C feeds/packages/lang/golang/golang1.27 host-compile
-2026-11-14T13:50:47.2340122Z  make[3] -C feeds/packages/lang/golang/golang host-compile
-2026-11-14T15:55:44.2540974Z (cd /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db; CFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db=ustream-ssl-2026.03.01~99f1c0db -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs  -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/include -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/include -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/include/fortify " CXXFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db=ustream-ssl-2026.03.01~99f1c0db -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs  -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/include -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/include -I/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/include/fortify " LDFLAGS="-L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/lib -L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/lib -fuse-ld=bfd -zmax-page-size=4096 -znow -zrelro -zpack-relative-relocs " cmake --no-warn-unused-cli -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_VERSION=1 -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS_RELEASE="-DNDEBUG" -DCMAKE_CXX_FLAGS_RELEASE="-DNDEBUG" -DCMAKE_C_COMPILER_LAUNCHER="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin/ccache" -DCMAKE_C_COMPILER="aarch64-openwrt-linux-musl-gcc" -DCMAKE_CXX_COMPILER_LAUNCHER="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin/ccache" -DCMAKE_CXX_COMPILER="aarch64-openwrt-linux-musl-g++" -DCMAKE_ASM_COMPILER_LAUNCHER="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin/ccache" -DCMAKE_ASM_COMPILER="aarch64-openwrt-linux-musl-gcc" -DCMAKE_EXE_LINKER_FLAGS:STRING="-L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/lib -L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/lib -fuse-ld=bfd -zmax-page-size=4096 -znow -zrelro -zpack-relative-relocs" -DCMAKE_MODULE_LINKER_FLAGS:STRING="-L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/lib -L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/lib -fuse-ld=bfd -zmax-page-size=4096 -znow -zrelro -zpack-relative-relocs -Wl,-Bsymbolic-functions" -DCMAKE_SHARED_LINKER_FLAGS:STRING="-L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/usr/lib -L/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/lib -fuse-ld=bfd -zmax-page-size=4096 -znow -zrelro -zpack-relative-relocs -Wl,-Bsymbolic-functions" -DCMAKE_AR="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin/aarch64-openwrt-linux-musl-gcc-ar" -DCMAKE_NM="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin/aarch64-openwrt-linux-musl-gcc-nm" -DCMAKE_RANLIB="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl/bin/aarch64-openwrt-linux-musl-gcc-ranlib" -DCMAKE_FIND_ROOT_PATH="/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/target-aarch64_cortex-a53_musl/usr;/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.3.0_musl" -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY -DCMAKE_STRIP=: -DCMAKE_INSTALL_PREFIX=/usr -DDL_LIBRARY=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/target-aarch64_cortex-a53_musl -DCMAKE_PREFIX_PATH=/home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/target-aarch64_cortex-a53_musl -DCMAKE_SKIP_RPATH=TRUE -DCMAKE_EXPORT_PACKAGE_REGISTRY=FALSE -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=TRUE -DCMAKE_FIND_USE_PACKAGE_REGISTRY=FALSE -DCMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY=TRUE -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=FALSE -DCMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY=TRUE -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_GENERATOR="Ninja" -DMBEDTLS=on /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db )
+2026-11-14T19:13:09.9343539Z # CONFIG_PACKAGE_golang1.26-doc is not set
+2026-11-14T19:13:09.9343643Z # CONFIG_PACKAGE_golang1.26-misc is not set
+2026-11-14T19:13:09.9343751Z # CONFIG_PACKAGE_golang1.26-src is not set
+2026-11-14T19:13:09.9343853Z # CONFIG_PACKAGE_golang1.26-tests is not set
+2026-11-14T19:13:09.9960040Z   toolchain: true
+2026-11-14T19:13:10.4476655Z [36;1mrm -rf staging_dir/toolchain-*/bin/*openwrt-linux-musl-lto-dump[0m
+2026-11-14T19:13:10.4477046Z [36;1mrm -rf staging_dir/toolchain-*/initial[0m
+2026-11-14T19:32:12.9346956Z  make[2] toolchain/compile
+2026-11-14T19:32:15.0031288Z  make[3] -C toolchain/fortify-headers compile
+2026-11-14T19:32:15.0034772Z  make[3] -C toolchain/binutils compile
+2026-11-14T19:32:15.0035210Z  make[3] -C toolchain/gdb compile
+2026-11-14T19:34:29.3584660Z  make[3] -C toolchain/gcc/initial compile
+2026-11-14T19:45:49.3107880Z  make[3] -C toolchain/kernel-headers compile
+2026-11-14T19:46:07.2937094Z  make[3] -C toolchain/musl compile
+2026-11-14T19:46:57.4778487Z  make[3] -C toolchain/gcc/final compile
+2026-11-14T20:11:24.2636763Z  make[3] -C package/libs/toolchain compile
+2026-11-14T20:12:14.3560909Z  make[3] -C feeds/packages/lang/golang/golang-bootstrap host-compile
+2026-11-14T20:38:45.8865179Z  make[3] -C feeds/packages/lang/golang/golang1.27 host-compile
+2026-11-14T20:54:37.9035071Z  make[3] -C feeds/packages/lang/golang/golang1.26 host-compile
+2026-11-14T21:10:37.2454895Z  make[3] -C feeds/packages/lang/golang/golang host-compile
 === generic errors (last 40) ===
-2026-11-14T12:26:13.7291193Z tmp/.config-package.in:96939:error: recursive dependency detected!
-2026-11-14T12:26:13.7292770Z tmp/.config-package.in:96956:error: recursive dependency detected!
-2026-11-14T12:26:13.7294187Z tmp/.config-package.in:97004:error: recursive dependency detected!
-2026-11-14T12:26:13.7295597Z tmp/.config-package.in:97038:error: recursive dependency detected!
-2026-11-14T12:26:13.7370830Z tmp/.config-package.in:90758:error: recursive dependency detected!
-2026-11-14T12:26:13.7395669Z tmp/.config-package.in:82013:error: recursive dependency detected!
-2026-11-14T12:26:13.7397292Z tmp/.config-package.in:84099:error: recursive dependency detected!
-2026-11-14T12:26:13.7401200Z tmp/.config-package.in:101509:error: recursive dependency detected!
-2026-11-14T12:26:13.7469976Z tmp/.config-package.in:97021:error: recursive dependency detected!
-2026-11-14T12:26:13.7472152Z tmp/.config-package.in:97119:error: recursive dependency detected!
-2026-11-14T12:26:13.7474097Z tmp/.config-package.in:56138:error: recursive dependency detected!
-2026-11-14T12:26:13.7475553Z tmp/.config-package.in:74443:error: recursive dependency detected!
-2026-11-14T12:26:13.7528033Z tmp/.config-package.in:90977:error: recursive dependency detected!
-2026-11-14T12:26:13.7529851Z tmp/.config-package.in:91662:error: recursive dependency detected!
-2026-11-14T12:26:13.7696757Z tmp/.config-package.in:97102:error: recursive dependency detected!
-2026-11-14T12:26:13.7747694Z tmp/.config-package.in:70116:error: recursive dependency detected!
-2026-11-14T12:26:13.7750193Z tmp/.config-package.in:81066:error: recursive dependency detected!
-2026-11-14T12:26:13.7751819Z tmp/.config-package.in:96988:error: recursive dependency detected!
-2026-11-14T12:26:13.7753226Z tmp/.config-package.in:100982:error: recursive dependency detected!
-2026-11-14T12:26:13.7817191Z tmp/.config-package.in:96972:error: recursive dependency detected!
-2026-11-14T12:26:13.7894673Z tmp/.config-package.in:73721:error: recursive dependency detected!
-2026-11-14T12:26:13.7913364Z tmp/.config-package.in:96783:error: recursive dependency detected!
-2026-11-14T12:26:13.7915447Z tmp/.config-package.in:96850:error: recursive dependency detected!
-2026-11-14T12:26:13.7917570Z tmp/.config-package.in:96922:error: recursive dependency detected!
-2026-11-14T12:26:13.7919737Z tmp/.config-package.in:97066:error: recursive dependency detected!
-2026-11-14T12:26:13.7932353Z tmp/.config-package.in:100300:error: recursive dependency detected!
-2026-11-14T12:26:13.7934926Z tmp/.config-package.in:81886:error: recursive dependency detected!
-2026-11-14T12:26:14.2013457Z # CONFIG_KERNEL_WERROR is not set
-2026-11-14T12:26:14.2360614Z # CONFIG_PACKAGE_libgpg-error is not set
-2026-11-14T14:01:12.1110358Z     ERROR: package/libs/ustream-ssl failed to build (build variant: mbedtls).
-2026-11-14T15:31:28.9509554Z make -r world: build failed. Please re-run make with -j1 V=s or V=sc for a higher verbosity level to see what's going on
-2026-11-14T15:31:28.9510247Z make: *** [/home/runner/work/kwrt-custom/kwrt-custom/openwrt/include/toplevel.mk:233: world] Error 1
-2026-11-14T15:55:44.2517580Z /home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/host/bin/find: '/mnt/openwrt/build_dir/target-aarch64_cortex-a53_musl/linux-mediatek_filogic/my-default-settings-2/ipkg-all/my-default-settings/etc/config/': No such file or directory
-2026-11-14T15:55:44.2555873Z CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
-2026-11-14T15:55:44.2560733Z CMake Generate step failed.  Build files cannot be regenerated correctly.
-2026-11-14T15:55:44.2561583Z make[3]: *** [Makefile:75: /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db/.configured_68b329da9893e34099c7d8ad5cb9c940] Error 1
-2026-11-14T15:55:44.2563357Z     ERROR: package/libs/ustream-ssl failed to build (build variant: mbedtls).
-2026-11-14T15:55:44.2563739Z make[2]: *** [package/Makefile:191: package/libs/ustream-ssl/compile] Error 1
-2026-11-14T15:55:44.2564719Z make[1]: *** [package/Makefile:185: /home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/target-aarch64_cortex-a53_musl/stamp/.package_compile] Error 2
-2026-11-14T15:55:44.2565735Z make: *** [/home/runner/work/kwrt-custom/kwrt-custom/openwrt/include/toplevel.mk:233: world] Error 2
+2026-11-14T19:13:09.3937338Z tmp/.config-package.in:72424:error: recursive dependency detected!
+2026-11-14T19:13:09.3941084Z tmp/.config-package.in:98551:error: recursive dependency detected!
+2026-11-14T19:13:09.3943601Z tmp/.config-package.in:96927:error: recursive dependency detected!
+2026-11-14T19:13:09.3945687Z tmp/.config-package.in:96837:error: recursive dependency detected!
+2026-11-14T19:13:09.3954354Z tmp/.config-package.in:90944:error: recursive dependency detected!
+2026-11-14T19:13:09.3981318Z tmp/.config-package.in:72865:error: recursive dependency detected!
+2026-11-14T19:13:09.4025845Z tmp/.config-package.in:91890:error: recursive dependency detected!
+2026-11-14T19:13:09.4062296Z tmp/.config-package.in:83677:error: recursive dependency detected!
+2026-11-14T19:13:09.4065271Z tmp/.config-package.in:96960:error: recursive dependency detected!
+2026-11-14T19:13:09.4067012Z tmp/.config-package.in:96977:error: recursive dependency detected!
+2026-11-14T19:13:09.4068919Z tmp/.config-package.in:97025:error: recursive dependency detected!
+2026-11-14T19:13:09.4070686Z tmp/.config-package.in:97059:error: recursive dependency detected!
+2026-11-14T19:13:09.4142977Z tmp/.config-package.in:90779:error: recursive dependency detected!
+2026-11-14T19:13:09.4167621Z tmp/.config-package.in:82034:error: recursive dependency detected!
+2026-11-14T19:13:09.4170399Z tmp/.config-package.in:84120:error: recursive dependency detected!
+2026-11-14T19:13:09.4173282Z tmp/.config-package.in:101530:error: recursive dependency detected!
+2026-11-14T19:13:09.4240962Z tmp/.config-package.in:97042:error: recursive dependency detected!
+2026-11-14T19:13:09.4244298Z tmp/.config-package.in:97140:error: recursive dependency detected!
+2026-11-14T19:13:09.4246192Z tmp/.config-package.in:56138:error: recursive dependency detected!
+2026-11-14T19:13:09.4248082Z tmp/.config-package.in:74464:error: recursive dependency detected!
+2026-11-14T19:13:09.4300855Z tmp/.config-package.in:90998:error: recursive dependency detected!
+2026-11-14T19:13:09.4303862Z tmp/.config-package.in:91683:error: recursive dependency detected!
+2026-11-14T19:13:09.4474233Z tmp/.config-package.in:97123:error: recursive dependency detected!
+2026-11-14T19:13:09.4521826Z tmp/.config-package.in:70117:error: recursive dependency detected!
+2026-11-14T19:13:09.4525195Z tmp/.config-package.in:81087:error: recursive dependency detected!
+2026-11-14T19:13:09.4527139Z tmp/.config-package.in:97009:error: recursive dependency detected!
+2026-11-14T19:13:09.4528834Z tmp/.config-package.in:101003:error: recursive dependency detected!
+2026-11-14T19:13:09.4594121Z tmp/.config-package.in:96993:error: recursive dependency detected!
+2026-11-14T19:13:09.4663902Z tmp/.config-package.in:73650:error: recursive dependency detected!
+2026-11-14T19:13:09.4679846Z tmp/.config-package.in:73742:error: recursive dependency detected!
+2026-11-14T19:13:09.4698477Z tmp/.config-package.in:96804:error: recursive dependency detected!
+2026-11-14T19:13:09.4700642Z tmp/.config-package.in:96871:error: recursive dependency detected!
+2026-11-14T19:13:09.4702412Z tmp/.config-package.in:96943:error: recursive dependency detected!
+2026-11-14T19:13:09.4704635Z tmp/.config-package.in:97087:error: recursive dependency detected!
+2026-11-14T19:13:09.4716170Z tmp/.config-package.in:100321:error: recursive dependency detected!
+2026-11-14T19:13:09.4718790Z tmp/.config-package.in:81907:error: recursive dependency detected!
+2026-11-14T19:13:09.8839102Z # CONFIG_KERNEL_WERROR is not set
+2026-11-14T19:13:09.8903152Z # CONFIG_BUSYBOX_DEFAULT_WERROR is not set
+2026-11-14T19:13:09.9050145Z # CONFIG_BUSYBOX_CONFIG_WERROR is not set
+2026-11-14T19:13:09.9507322Z # CONFIG_PACKAGE_libgpg-error is not set
 === package mentions near failures ===
-2026-11-14T14:01:10.5270106Z  make[3] -C package/libs/ustream-ssl compile
-2026-11-14T14:01:12.1110358Z     ERROR: package/libs/ustream-ssl failed to build (build variant: mbedtls).
-2026-11-14T15:31:28.9509554Z make -r world: build failed. Please re-run make with -j1 V=s or V=sc for a higher verbosity level to see what's going on
-2026-11-14T15:31:28.9510247Z make: *** [/home/runner/work/kwrt-custom/kwrt-custom/openwrt/include/toplevel.mk:233: world] Error 1
-2026-11-14T15:55:44.2475876Z touch /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/linux-mediatek_filogic/my-default-settings-2/.pkgdir/my-default-settings.installed
 === last 60 raw lines ===
-2026-11-14T15:55:44.2561583Z make[3]: *** [Makefile:75: /home/runner/work/kwrt-custom/kwrt-custom/openwrt/build_dir/target-aarch64_cortex-a53_musl/ustream-ssl-mbedtls/ustream-ssl-2026.03.01~99f1c0db/.configured_68b329da9893e34099c7d8ad5cb9c940] Error 1
-2026-11-14T15:55:44.2562475Z make[3]: Leaving directory '/home/runner/work/kwrt-custom/kwrt-custom/openwrt/package/libs/ustream-ssl'
-2026-11-14T15:55:44.2562960Z time: package/libs/ustream-ssl/mbedtls/compile#0.07#0.09#0.15
-2026-11-14T15:55:44.2563357Z     ERROR: package/libs/ustream-ssl failed to build (build variant: mbedtls).
-2026-11-14T15:55:44.2563739Z make[2]: *** [package/Makefile:191: package/libs/ustream-ssl/compile] Error 1
-2026-11-14T15:55:44.2564122Z make[2]: Leaving directory '/home/runner/work/kwrt-custom/kwrt-custom/openwrt'
-2026-11-14T15:55:44.2564719Z make[1]: *** [package/Makefile:185: /home/runner/work/kwrt-custom/kwrt-custom/openwrt/staging_dir/target-aarch64_cortex-a53_musl/stamp/.package_compile] Error 2
-2026-11-14T15:55:44.2565299Z make[1]: Leaving directory '/home/runner/work/kwrt-custom/kwrt-custom/openwrt'
-2026-11-14T15:55:44.2565735Z make: *** [/home/runner/work/kwrt-custom/kwrt-custom/openwrt/include/toplevel.mk:233: world] Error 2
-2026-11-14T15:55:44.2566192Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-2026-11-14T15:55:44.2566522Z                                  Dload  Upload   Total   Spent    Left  Speed
-2026-11-14T15:55:44.2566873Z 
-2026-11-14T15:55:44.7605265Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-2026-11-14T15:55:44.7605789Z 100   121  100    55  100    66    108    130 --:--:-- --:--:-- --:--:--   238
-2026-11-14T15:55:44.7606119Z 100   121  100    55  100    66    108    130 --:--:-- --:--:-- --:--:--   238
-2026-11-14T15:55:44.7639629Z {"ok":false,"error_code":404,"description":"Not Found"}Filesystem      Type      Size  Used Avail Use% Mounted on
-2026-11-14T15:55:44.7640187Z /dev/root       ext4      145G   83G   63G  57% /
-2026-11-14T15:55:44.7640569Z tmpfs           tmpfs     7.9G   84K  7.9G   1% /dev/shm
-2026-11-14T15:55:44.7640998Z tmpfs           tmpfs     3.2G  1.0M  3.2G   1% /run
-2026-11-14T15:55:44.7641396Z tmpfs           tmpfs     5.0M     0  5.0M   0% /run/lock
-2026-11-14T15:55:44.7641867Z efivarfs        efivarfs  128M   32K  128M   1% /sys/firmware/efi/efivars
-2026-11-14T15:55:44.7642349Z /dev/nvme0n1p16 ext4      881M   85M  735M  11% /boot
-2026-11-14T15:55:44.7643123Z /dev/nvme0n1p15 vfat      105M  6.2M   99M   6% /boot/efi
-2026-11-14T15:55:44.7643427Z tmpfs           tmpfs     1.6G  5.7M  1.6G   1% /run/user/1001
-2026-11-14T15:55:44.7643700Z tmpfs           tmpfs     7.9G     0  7.9G   0% /run/qemu
-2026-11-14T15:55:44.7709728Z ##[error]Process completed with exit code 1.
-2026-11-14T15:55:44.7936562Z Post job cleanup.
-2026-11-14T15:55:44.8725990Z [command]/usr/bin/git version
-2026-11-14T15:55:44.8777606Z git version 2.56.1
-2026-11-14T15:55:44.8801720Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/51cdb343-57ae-4875-9988-8c39e10c8238/.gitconfig'
-2026-11-14T15:55:44.8811083Z Temporarily overriding HOME='/home/runner/work/_temp/51cdb343-57ae-4875-9988-8c39e10c8238' before making global git config changes
-2026-11-14T15:55:44.8812300Z Adding repository directory to the temporary git global config as a safe directory
-2026-11-14T15:55:44.8815665Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kwrt-custom/kwrt-custom
-2026-11-14T15:55:44.8865706Z Removing SSH command configuration
-2026-11-14T15:55:44.8872877Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-11-14T15:55:44.8930808Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-11-14T15:55:44.9176388Z Removing HTTP extra header
-2026-11-14T15:55:44.9183093Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-11-14T15:55:44.9222204Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-11-14T15:55:44.9474984Z Removing includeIf entries pointing to credentials config files
-2026-11-14T15:55:44.9483098Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-11-14T15:55:44.9550472Z includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path
-2026-11-14T15:55:44.9551339Z includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path
-2026-11-14T15:55:44.9552368Z includeif.gitdir:/github/workspace/.git.path
-2026-11-14T15:55:44.9555069Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
-2026-11-14T15:55:44.9556795Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path
-2026-11-14T15:55:44.9618319Z /home/runner/work/_temp/git-credentials-9e45e22a-075e-4aa4-8f7c-1db798c08fef.config
-2026-11-14T15:55:44.9627925Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-9e45e22a\-075e\-4aa4\-8f7c\-1db798c08fef\.config
-2026-11-14T15:55:44.9681244Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path
-2026-11-14T15:55:44.9717201Z /home/runner/work/_temp/git-credentials-9e45e22a-075e-4aa4-8f7c-1db798c08fef.config
-2026-11-14T15:55:44.9727956Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-9e45e22a\-075e\-4aa4\-8f7c\-1db798c08fef\.config
-2026-11-14T15:55:44.9777879Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
-2026-11-14T15:55:44.9814074Z /github/runner_temp/git-credentials-9e45e22a-075e-4aa4-8f7c-1db798c08fef.config
-2026-11-14T15:55:44.9823068Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-9e45e22a\-075e\-4aa4\-8f7c\-1db798c08fef\.config
-2026-11-14T15:55:44.9879786Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
-2026-11-14T15:55:44.9927630Z /github/runner_temp/git-credentials-9e45e22a-075e-4aa4-8f7c-1db798c08fef.config
-2026-11-14T15:55:44.9934830Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-9e45e22a\-075e\-4aa4\-8f7c\-1db798c08fef\.config
-2026-11-14T15:55:44.9986325Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-11-14T15:55:45.0286229Z Removing credentials config '/home/runner/work/_temp/git-credentials-9e45e22a-075e-4aa4-8f7c-1db798c08fef.config'
-2026-11-14T15:55:45.0475947Z Cleaning up orphan processes
+2026-11-14T23:18:08.7836816Z   DOCKER_ID: 
+2026-11-14T23:18:08.7837004Z   DOCKER_PASSWD: 
+2026-11-14T23:18:08.7837206Z   TZ: Asia/Shanghai
+2026-11-14T23:18:08.7837472Z   REPO_URL: https://github.com/openwrt/openwrt
+2026-11-14T23:18:08.7837756Z   REPO_BRANCH: 
+2026-11-14T23:18:08.7837954Z   CONFIG_FILE: .config
+2026-11-14T23:18:08.7838350Z   DIY_SH: diy.sh
+2026-11-14T23:18:08.7838614Z   FREE_UP_DISK: false
+2026-11-14T23:18:08.7838853Z   UPLOAD_BIN_DIR_FOR_ARTIFACT: false
+2026-11-14T23:18:08.7839127Z   UPLOAD_FIRMWARE_FOR_ARTIFACT: true
+2026-11-14T23:18:08.7839390Z   UPLOAD_FIRMWARE_FOR_RELEASE: false
+2026-11-14T23:18:08.7839653Z   UPLOAD_FIRMWARE_TO_COWTRANSFER: false
+2026-11-14T23:18:08.7839931Z   UPLOAD_FIRMWARE_TO_WETRANSFER: true
+2026-11-14T23:18:08.7840182Z   date: 11/15_2026_03/10
+2026-11-14T23:18:08.7840399Z   date2: 11/15 2026
+2026-11-14T23:18:08.7840601Z   VERSION: 11.15
+2026-11-14T23:18:08.7840805Z   EMOJI: 🔥
+2026-11-14T23:18:08.7840987Z ##[endgroup]
+2026-11-14T23:18:09.6705158Z No workflow runs need to be deleted.
+2026-11-14T23:18:09.6855465Z Post job cleanup.
+2026-11-14T23:18:10.0817854Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/kwrt-custom/kwrt-custom --files-from manifest.txt --use-compress-program zstdmt
+2026-11-14T23:18:24.0881079Z Sent 0 of 589681117 (0.0%), 0.0 MBs/sec
+2026-11-14T23:18:25.0905191Z Sent 536870912 of 589681117 (91.0%), 255.9 MBs/sec
+2026-11-14T23:18:25.4808950Z Sent 589681117 of 589681117 (100.0%), 235.0 MBs/sec
+2026-11-14T23:18:25.7258142Z Cache saved with key: mediatek_filogic-cache-openwrt-69af20612b (id: 10537449681)
+2026-11-14T23:18:25.7455432Z Post job cleanup.
+2026-11-14T23:18:25.8336228Z [command]/usr/bin/git version
+2026-11-14T23:18:25.8378967Z git version 2.56.1
+2026-11-14T23:18:25.8409369Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/092161b6-6b97-4629-94ae-d27c40dd66d4/.gitconfig'
+2026-11-14T23:18:25.8420671Z Temporarily overriding HOME='/home/runner/work/_temp/092161b6-6b97-4629-94ae-d27c40dd66d4' before making global git config changes
+2026-11-14T23:18:25.8422454Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-14T23:18:25.8425657Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kwrt-custom/kwrt-custom
+2026-11-14T23:18:25.8468143Z Removing SSH command configuration
+2026-11-14T23:18:25.8474654Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-14T23:18:25.8508009Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-14T23:18:25.8723781Z Removing HTTP extra header
+2026-11-14T23:18:25.8729590Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-14T23:18:25.8768383Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-14T23:18:25.8984976Z Removing includeIf entries pointing to credentials config files
+2026-11-14T23:18:25.8991961Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-14T23:18:25.9024821Z includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path
+2026-11-14T23:18:25.9025997Z includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path
+2026-11-14T23:18:25.9027183Z includeif.gitdir:/github/workspace/.git.path
+2026-11-14T23:18:25.9028199Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-14T23:18:25.9033307Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path
+2026-11-14T23:18:25.9060106Z /home/runner/work/_temp/git-credentials-b911dc74-c66d-419a-b023-ffdd992de36d.config
+2026-11-14T23:18:25.9073219Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-b911dc74\-c66d\-419a\-b023\-ffdd992de36d\.config
+2026-11-14T23:18:25.9111933Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path
+2026-11-14T23:18:25.9158152Z /home/runner/work/_temp/git-credentials-b911dc74-c66d-419a-b023-ffdd992de36d.config
+2026-11-14T23:18:25.9169755Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/kwrt-custom/kwrt-custom/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-b911dc74\-c66d\-419a\-b023\-ffdd992de36d\.config
+2026-11-14T23:18:25.9201635Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-14T23:18:25.9233408Z /github/runner_temp/git-credentials-b911dc74-c66d-419a-b023-ffdd992de36d.config
+2026-11-14T23:18:25.9243787Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-b911dc74\-c66d\-419a\-b023\-ffdd992de36d\.config
+2026-11-14T23:18:25.9279044Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-14T23:18:25.9300599Z /github/runner_temp/git-credentials-b911dc74-c66d-419a-b023-ffdd992de36d.config
+2026-11-14T23:18:25.9309342Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-b911dc74\-c66d\-419a\-b023\-ffdd992de36d\.config
+2026-11-14T23:18:25.9345082Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-14T23:18:25.9538018Z Removing credentials config '/home/runner/work/_temp/git-credentials-b911dc74-c66d-419a-b023-ffdd992de36d.config'
+2026-11-14T23:18:25.9693801Z Cleaning up orphan processes
+2026-11-14T23:18:26.0081111Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: GitRML/delete-workflow-runs@main. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
